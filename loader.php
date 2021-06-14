@@ -8,19 +8,35 @@
 namespace LitePress\WP_China_Yes;
 
 use LitePress\WP_China_Yes\Inc\Core;
-use function LitePress\WP_China_Yes\Inc\get_options;
+use LitePress\WP_China_Yes\Inc\DataObject\Options;
+use LitePress\WP_China_Yes\Inc\Plugin_Install;
 
+/**
+ * TODO 调试
+ */
+ini_set( 'display_errors', 1 );
+
+require_once 'inc/data-object/class-user-info.php';
+require_once 'inc/data-object/class-switch-status.php';
+require_once 'inc/data-object/class-options.php';
 require_once 'config.php';
 require_once 'inc/functions.php';
-require_once 'inc/class-switch-status.php';
 require_once 'inc/class-core.php';
+require_once 'inc/store-route.php';
 require_once 'inc/settings.php';
+require_once 'inc/enqueue-scripts.php';
+require_once 'inc/controller/web/class-store-controller.php';
+require_once 'inc/controller/web/class-account-controller.php';
+require_once 'inc/controller/api/class-order-controller.php';
+require_once 'inc/controller/api/class-coupon-controller.php';
+require_once 'inc/controller/api/class-user-controller.php';
+require_once 'inc/class-plugin-install.php';
 
-$options = get_options();
-$core    = Core::get_instance();
-$core->set_wpapi_replacement_mode( $options['wpapi_replacement_mode'] );
-$core->set_is_replace_gravatar( $options['is_replace_gravatar'] );
-$core->set_is_replace_admin_assets( $options['is_replace_admin_assets'] );
-$core->set_is_replace_googleajax( $options['is_replace_googleajax'] );
-$core->set_is_replace_googlefonts( $options['is_replace_googlefonts'] );
+$wp_china_yes = Options::get_instance();
+
+$core = Core::get_instance( $wp_china_yes );
 $core->register_hook();
+
+add_action( 'admin_init', function () {
+    Plugin_Install::get_instance();
+} );

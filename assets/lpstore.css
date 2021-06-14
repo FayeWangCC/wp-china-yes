@@ -1,0 +1,71 @@
+.woo-ordering {
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.woocommerce-result-count {
+    margin: 0 0 0 auto !important;
+}
+
+.f-sort a {
+    float: left;
+    padding: 0 9px;
+    height: 30px;
+    border: 1px solid #CCC;
+    line-height: 28px;
+    margin-right: -1px;
+    background: #FFF;
+    color: #333;
+    font-size: 14px;
+}
+
+.f-sort .fs-down, .f-sort .fs-up {
+    display: inline-block;
+    width: 7px;
+    margin-left: 5px;
+    vertical-align: top;
+    *cursor: pointer;
+    min-width: 10px;
+    text-align: center;
+}
+
+.f-sort a.curr {
+    border-color: #0274be;
+    background: #0274be;
+    color: #FFF;
+}
+
+.wcy-filter .row {
+    border-radius: 4px;
+    background: #fff;
+}
+
+.wcy-filter li a {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+
+.wcy-filter li i, .wcpv-field-note {
+    font-style: normal;
+}
+
+.wcy-filter > .row > ul > li {
+    display: flex;
+    margin: 5px;
+    align-items: center;
+}
+
+.filter-cost-ul {
+    display: flex;
+}
+
+.wcy-filter li a.active, .wcy-filter li a:hover {
+    background: #2271b1;
+    color: #fff !important;
+}
+
+.filter-cost-ul li {
+    margin: 5px;
+}

@@ -1,5 +1,6 @@
 <?php
-namespace LitePress\WP_China_Yes\Inc;
+
+namespace LitePress\WP_China_Yes\Inc\DataObject;
 
 final class Switch_Status {
 
