@@ -2,7 +2,6 @@
 
 namespace LitePress\WP_China_Yes\Inc;
 
-use LitePress\WP_China_Yes\Inc\DataObject\Options;
 use LitePress\WP_China_Yes\Inc\DataObject\Switch_Status;
 
 function get_curl_version() {
@@ -58,12 +57,13 @@ function diff_date( $date1, $date2 ) {
     $minute  = floor( ( $diff_time - ( $year * $year_t ) - ( $month * $month_t ) - ( $week * $week_t ) - ( $days * $day_t ) - $hours * $hours_t ) / $minute_t );
     $seconds = $diff_time - ( $year * $year_t ) - ( $month * $month_t ) - ( $week * $week_t ) - ( $days * $day_t ) - ( $hours * $hours_t ) - ( $minute * $minute_t );
 
-    return array( '年'  => (int) $year,
-                  '月'  => (int) $month,
-                  '天'  => (int) $days,
-                  '小时' => (int) $hours,
-                  '分钟' => (int) $minute,
-                  '秒'  => (int) $seconds
+    return array(
+        '年'  => (int) $year,
+        '月'  => (int) $month,
+        '天'  => (int) $days,
+        '小时' => (int) $hours,
+        '分钟' => (int) $minute,
+        '秒'  => (int) $seconds
     );
 }
 
@@ -76,7 +76,7 @@ function diff_date( $date1, $date2 ) {
  */
 function get_how_ago( $timestamp ) {
     $diff_time = '';
-    foreach ( (array) diff_date( current_time('Y-m-d H:i:s'), date( 'Y-m-d H:i:s', $timestamp ) ) as $key => $value ) {
+    foreach ( (array) diff_date( current_time( 'Y-m-d H:i:s' ), date( 'Y-m-d H:i:s', $timestamp ) ) as $key => $value ) {
         if ( 0 !== $value ) {
             $diff_time = $value . $key . '前';
             break;
@@ -96,15 +96,15 @@ function get_how_ago( $timestamp ) {
  * @return string
  */
 function prepare_installed_num( $num ) {
-    $str = $num;
+    $str    = $num;
     $length = strlen( $num );
     if ( $length > 8 ) { //亿单位
-        $str = str_replace( '00000000', '', $num ).'亿';
+        $str = str_replace( '00000000', '', $num ) . '亿';
     } elseif ( $length > 4 ) { //万单位
-        $str = str_replace( '0000', '', $num ).'万';
+        $str = str_replace( '0000', '', $num ) . '万';
     }
 
-    return $str.'+';
+    return $str . '+';
 }
 
 /**
@@ -114,8 +114,8 @@ function prepare_installed_num( $num ) {
  */
 function prepare_meta( $metas ) {
     $data = array();
-    foreach ( (array)$metas as $meta ) {
-        $data[$meta->key] = $meta->value;
+    foreach ( (array) $metas as $meta ) {
+        $data[ $meta->key ] = $meta->value;
     }
 
     return $data;
@@ -214,15 +214,19 @@ function check_switch_status( $value ) {
  * @param string $type
  */
 function get_switch( string $name, string $value, string $type = 'advanced' ) {
-  global $wp_china_yes;
+    global $wp_china_yes;
     ?>
-    <select class="regular" name="wp-china-yes[<?php echo $name; ?>]" id="wp-china-yes[<?php echo $name; ?>]">
-        <?php if ( 'advanced' === $type ): ?>
-            <option value="<?php echo $wp_china_yes::ONLY_USER; ?>" <?php selected( $value, $wp_china_yes::ONLY_USER ); ?>>前台开启</option>
-            <option value="<?php echo $wp_china_yes::ONLY_ADMIN; ?>" <?php selected( $value, $wp_china_yes::ONLY_ADMIN ); ?>>后台开启</option>
-        <?php endif; ?>
-        <option value="<?php echo $wp_china_yes::ON; ?>" <?php selected( $value, $wp_china_yes::ON ); ?>><?php echo 'advanced' === $type ? '全局开启' : '启用' ?></option>
-        <option value="<?php echo $wp_china_yes::OFF; ?>" <?php selected( $value, $wp_china_yes::OFF ); ?>>禁用</option>
-    </select>
+  <select class="regular" name="wp-china-yes[<?php echo $name; ?>]" id="wp-china-yes[<?php echo $name; ?>]">
+      <?php if ( 'advanced' === $type ): ?>
+        <option value="<?php echo $wp_china_yes::ONLY_USER; ?>" <?php selected( $value, $wp_china_yes::ONLY_USER ); ?>>
+          前台开启
+        </option>
+        <option value="<?php echo $wp_china_yes::ONLY_ADMIN; ?>" <?php selected( $value, $wp_china_yes::ONLY_ADMIN ); ?>>
+          后台开启
+        </option>
+      <?php endif; ?>
+    <option value="<?php echo $wp_china_yes::ON; ?>" <?php selected( $value, $wp_china_yes::ON ); ?>><?php echo 'advanced' === $type ? '全局开启' : '启用' ?></option>
+    <option value="<?php echo $wp_china_yes::OFF; ?>" <?php selected( $value, $wp_china_yes::OFF ); ?>>禁用</option>
+  </select>
     <?php
 }
