@@ -175,5 +175,3 @@ use function LitePress\WP_China_Yes\Inc\pagination;
     parent.tb_remove();
   });
 </script>
-
-<script src="https://cdn.bootcdn.net/ajax/libs/urljs/2.5.0/url.min.js"></script>

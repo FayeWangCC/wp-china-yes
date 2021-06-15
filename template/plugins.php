@@ -378,6 +378,3 @@ use function LitePress\WP_China_Yes\Inc\prepare_installed_num;
         box-shadow: none !important;
     }
 </style>
-
-<script src="https://cdn.bootcdn.net/ajax/libs/urljs/2.5.0/url.min.js"></script>
-<script src="https://cdn.bootcdn.net/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
