@@ -34,11 +34,15 @@ $(function () {
         //return this;
     });
 
+    /*主题按钮功能*/
+    $('.collapse-sidebar.button').click(function () {
+        $('.wp-full-overlay').toggleClass('collapsed expanded');
+    });
 
-    /*        $.getJSON("https://litepress.cn/store/wp-json/wp/v2/pages/"+product_id, "", function(data) {　 //each循环 使用$.each方法遍历返回的数据date
-                    const str = data.id;
-                    console.log(str);
-            });*/
+    $('.close-full-overlay').click(function () {
+        parent.tb_remove();
+    });
+
     /*协议流程*/
     $.ajax({
         url: "https://litepress.cn/store/wp-json/wp/v2/pages/246953",

@@ -615,3 +615,26 @@ table.shop_table tfoot th {
 .logout {
     cursor: pointer;
 }
+
+#TB_window #TB_title {
+    background: none;
+    border-bottom: 0;
+    position: absolute;
+    right: 0;
+}
+
+#TB_ajaxWindowTitle {
+    display: none;
+}
+
+.tb-close-icon {
+    color: #fff !important;
+}
+
+#TB_closeWindowButton {
+    right: -40px !important;
+}
+
+#TB_closeWindowButton:focus .tb-close-icon {
+    box-shadow: none !important;
+}

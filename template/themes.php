@@ -159,19 +159,5 @@ use function LitePress\WP_China_Yes\Inc\pagination;
 
 <p class="no-themes">未找到主题，请重新搜索。</p>
 
-<style>
-    #TB_closeWindowButton {
-        position: relative !important;
-        width: 45px !important;
-        height: 45px !important;
-    }
-</style>
-<script>
-  $('.collapse-sidebar.button').click(function () {
-    $('.wp-full-overlay').toggleClass('collapsed expanded');
-  });
 
-  $('.close-full-overlay').click(function () {
-    parent.tb_remove();
-  });
-</script>
+
