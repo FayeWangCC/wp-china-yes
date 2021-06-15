@@ -86,7 +86,7 @@ use function LitePress\WP_China_Yes\Inc\pagination;
                 <div class="theme-install-overlay wp-full-overlay expanded iframe-ready" style="display:block;">
                   <div class="wp-full-overlay-sidebar">
                     <div class="wp-full-overlay-header">
-                      <button class="close-full-overlay" type="button" id="TB_closeWindowButton">
+                      <button class="close-full-overlay" type="button" >
                         <span class="screen-reader-text">关闭</span>
                       </button>
                       <button class="previous-theme disabled" disabled=""><span class="screen-reader-text">上一个主题</span>
@@ -159,21 +159,5 @@ use function LitePress\WP_China_Yes\Inc\pagination;
 
 <p class="no-themes">未找到主题，请重新搜索。</p>
 
-<style>
-    #TB_closeWindowButton {
-        position: relative !important;
-        width: 45px !important;
-        height: 45px !important;
-    }
-</style>
-<script>
-  $('.collapse-sidebar.button').click(function () {
-    $('.wp-full-overlay').toggleClass('collapsed expanded');
-  });
 
-  $('.close-full-overlay').click(function () {
-    parent.tb_remove();
-  });
-</script>
 
-<script src="https://cdn.bootcdn.net/ajax/libs/urljs/2.5.0/url.min.js"></script>

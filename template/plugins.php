@@ -355,30 +355,4 @@ use function LitePress\WP_China_Yes\Inc\prepare_installed_num;
   </div>
 </form>
 
-<style>
-    #TB_window #TB_title {
-        background: none;
-        border-bottom: 0;
-        position: absolute;
-        right: 0;
-    }
 
-    #TB_ajaxWindowTitle {
-        display: none;
-    }
-
-    .tb-close-icon {
-        color: #fff !important;
-    }
-
-    #TB_closeWindowButton {
-        right: -40px !important;
-    }
-
-    #TB_closeWindowButton:focus .tb-close-icon {
-        box-shadow: none !important;
-    }
-</style>
-
-<script src="https://cdn.bootcdn.net/ajax/libs/urljs/2.5.0/url.min.js"></script>
-<script src="https://cdn.bootcdn.net/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>

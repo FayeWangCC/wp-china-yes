@@ -26,7 +26,7 @@ namespace LitePress\WP_China_Yes\Template;
             <span class="display-name"><?php echo $user_info->get_user_display_name() ?></span>
           </a>
 
-          注销？
+          <a class="logout">注销？</a>
         <?php else: ?>
           <a class="thickbox button button-primary" title="登录"
              href="#TB_inline?height=300&width=300&inlineId=login-1">
