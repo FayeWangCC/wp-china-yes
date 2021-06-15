@@ -13,4 +13,6 @@ add_action( 'admin_enqueue_scripts', function ( $page ) {
 
     wp_enqueue_style( 'lpstore', WCY_ROOT_URL . 'assets/lpstore.css', array(), VERSION );
     wp_enqueue_script( 'lpstore', WCY_ROOT_URL . 'assets/lpstore.js', array(), VERSION );
+
+    wp_enqueue_script( 'updates', admin_url('js/updates.min.js'), array(), VERSION );
 } );

@@ -253,8 +253,8 @@ use function LitePress\WP_China_Yes\Inc\prepare_installed_num;
                              data-plugin="<?php echo $all_local_projects[ $project->slug ]['Plugin'] ?>"
                              data-slug="<?php echo $project->slug ?>"
                              href="<?php echo $plugin_update_url ?>"
-                             aria-label="<?php echo $project->name; ?>"
-                             data-name="<?php echo $project->name; ?>"
+                             aria-label="更新<?php echo $project->name; ?> <?php echo $project->meta->_api_new_version ?>"
+                             data-name="<?php echo $project->name; ?> <?php echo $project->meta->_api_new_version ?>"
                              role="button">立即更新</a>
                           <?php elseif ( 'Activated' === $all_local_projects[ $project->slug ]['Status'] ?? '' ): ?>
                           <button type="button" class="button button-disabled"
@@ -269,10 +269,9 @@ use function LitePress\WP_China_Yes\Inc\prepare_installed_num;
                               );
                               $plugin_active_url = add_query_arg( $args, admin_url( 'plugins.php' ) );
                               ?>
-                          <a href="<?php echo $plugin_active_url; ?>"
-                             class="button activate-now"
-                             aria-label="启用<?php echo $project->name; ?>">启用
-                          </a>
+                          <a class="button activate-now" data-slug="<?php echo $project->slug; ?>"
+                             href="<?php echo $plugin_active_url; ?>" aria-label="启用现在安装<?php echo $project->name; ?>"
+                             data-name="<?php echo $project->name; ?> <?php echo $project->meta->_api_new_version ?>">启用</a>
                           <?php endif; ?>
                       <?php else: ?>
                           <?php
@@ -283,8 +282,10 @@ use function LitePress\WP_China_Yes\Inc\prepare_installed_num;
                           );
                           $plugin_install_url = add_query_arg( $args, admin_url( 'update.php' ) );
                           ?>
-                        <a href="<?php echo $plugin_install_url; ?>" class="button activate-now"
-                           aria-label="现在安装<?php echo $project->name; ?>">现在安装</a>
+                        <a class="install-now button" data-slug="<?php echo $project->slug; ?>"
+                           href="<?php echo $plugin_install_url; ?>"
+                           aria-label="现在安装<?php echo $project->name; ?> <?php echo $project->meta->_api_new_version ?>"
+                           data-name="<?php echo $project->name; ?> <?php echo $project->meta->_api_new_version ?>">现在安装</a>
                       <?php endif; ?>
                   </li>
                   <li><span class="woocommerce-Price-amount amount"><bdi><span
