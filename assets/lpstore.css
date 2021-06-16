@@ -1,3 +1,32 @@
+:root body{
+    --main-color:#2271b1;
+}
+:root body.admin-color-light{
+    --main-color:#0490b3;
+}
+:root body.admin-color-modern{
+    --main-color:#4664eb;
+}
+:root body.admin-color-blue{
+    --main-color:#e1a948;
+}
+:root body.admin-color-coffee{
+    --main-color:#c7a589;
+}
+:root body.admin-color-ectoplasm{
+    --main-color:#a3b745;
+}
+:root body.admin-color-midnight{
+    --main-color:#e14d43;
+}
+:root body.admin-color-ocean{
+    --main-color:#a7c0a9;
+}
+:root body.admin-color-ocean{
+    --main-color:#dd823b;
+}
+
+
 .woo-ordering {
     margin-bottom: 1.5rem;
     display: flex;
@@ -41,8 +70,8 @@
 }
 
 .f-sort a.curr {
-    border-color: #2271b1;
-    background: #2271b1;
+    border-color: var(--main-color);
+    background: var(--main-color);
     color: #FFF;
 }
 
@@ -72,7 +101,7 @@
 }
 
 .wcy-filter li a.active, .wcy-filter li a:hover {
-    background: #2271b1;
+    background: var(--main-color);
     color: #fff !important;
 }
 
@@ -537,7 +566,7 @@ table.shop_table tfoot th {
     position: relative;
     background-color: #f9f9f9;
     color: #515151;
-    border-top: 3px solid #2271b1;
+    border-top: 3px solid var(--main-color);
     list-style: none outside;
     width: auto;
     word-wrap: break-word;

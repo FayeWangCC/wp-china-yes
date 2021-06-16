@@ -31,14 +31,13 @@ namespace LitePress\WP_China_Yes\Template;
           <a class="thickbox button button-primary" title="登录" href="#TB_inline?height=300&width=300&inlineId=login-1">
             登录 LitePress.cn 账号
           </a>
-          <a class="thickbox button " title="注册" href="https://litepress.cn/register">
-            注册
-          </a>
+
         <?php endif; ?>
       <div id="login-1" style="display:none;">
         <div class="login">
-          <h2>登录 LitePress.cn 账号</h2>
-
+            <a class="navbar-brand" href="https://litepress.cn" target="_blank" one-link-mark="yes">
+                <img src="https://litepress.cn/wp-content/uploads/2021/05/logo.svg" alt="LitePress 社区"
+                     width="200"></a>
           <p>
             <label for="user_login">用户名或电子邮箱地址</label>
             <input type="text" name="log" id="user_login" class="input" value="" size="20" autocapitalize="none">
@@ -58,6 +57,11 @@ namespace LitePress\WP_China_Yes\Template;
             <input type="submit" name="wp-submit" id="wp-submit" class="button button-primary button-large wp_login_btn"
                    value="登录">
           </p>
+            <p id="nav">
+                <a rel="nofollow" href="https://litepress.cn/wp-login.php?action=register" target="_blank"
+                   one-link-mark="yes">注册</a> | <a href="https://litepress.cn/wp-login.php?action=lostpassword"
+                                                   target="_blank" one-link-mark="yes">忘记密码？</a>
+            </p>
         </div>
       </div>
   </section>
