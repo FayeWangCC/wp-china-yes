@@ -305,11 +305,10 @@
 .login #backtoblog,
 .login #nav {
     font-size: 13px;
-    padding: 0 24px 0
 }
 
 .login #nav {
-    margin: 24px 0 0 0
+    margin: -4px 0 0 0
 }
 
 #backtoblog {
@@ -637,4 +636,10 @@ table.shop_table tfoot th {
 
 #TB_closeWindowButton:focus .tb-close-icon {
     box-shadow: none !important;
+}
+
+.navbar-brand {
+    text-align: center;
+    display: block;
+    margin-bottom: 30px;
 }
