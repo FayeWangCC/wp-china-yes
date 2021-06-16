@@ -309,8 +309,9 @@ $tpl_args = $tpl_args ?? array(
                                     <header><h2>支付</h2></header>
                                     <article>
                                       <p>请扫描二维码前往微信支付</p>
-                                      <div class="qrcode"><small class="authentication-message fade show alert-warning">获取中<i
-                                                  class="loading"></i></small></div>
+                                        <p class="authentication-message fade show alert-warning">获取中<i
+                                                    class="loading"></i></p>
+                                      <div class="qrcode"></div>
                                     </article>
                                   </section>
                                 </dialog>

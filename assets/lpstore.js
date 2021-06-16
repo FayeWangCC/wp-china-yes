@@ -64,7 +64,6 @@ $(function () {
         const coupon_code = $(this).parent().prev().find("input").val();
         const cart_subtotal = $(this).parent().parent().parent().parent().find(".cart-subtotal");
         const cart_subtotal_val = $(cart_subtotal).find("b").text();
-
         $.ajax({
             url: api_domain + "/lp-api/v1/coupons",
             type: "get",
@@ -133,9 +132,8 @@ $(function () {
         $(this).parent().parent().parent().parent().hide();
         $("section.wp-pay").show().siblings().hide();
         const product_id = $(this).attr("product_id");
+        localStorage.setItem("local_product_id",product_id);
         const coupon_code = $(this).parent().parent().parent().parent().find("#coupon_code").val();
-
-
         $.ajax({
             url: api_domain + "/lp-api/v1/orders",
             type: "post",
@@ -151,6 +149,8 @@ $(function () {
                     $(".qrcode").html("支付成功")
                 } else {
                     $(".qrcode").html("").qrcode(data.pay_url);
+                    $('.authentication-message').html("");
+                    setInterval(function(){ Payment_query();}, 1000)
                 }
             },
             error: function (error) {
@@ -201,6 +201,36 @@ $(function () {
             },
         })
     })
+
+    /*封装支付查询*/
+    function Payment_query(){
+        $.ajax({
+            url: api_domain + "/lp-api/v1/orders/is_paid",
+            type: "GET",
+            dataType:"JSON",
+            data: {
+                order_id:localStorage.getItem("local_order_id"),
+            },
+            beforeSend: function (XMLHttpRequest) {
+                /*XMLHttpRequest.setRequestHeader("X-WP-Nonce", wprpv_rest_api_nonce);*/
+            },
+            error:function(error) {
+                if( error.responseJSON.message.length !== 0 ) {
+                    /*$(".qrcode").html("");*/
+                    $('.authentication-message').html(error.responseJSON.message);
+                }
+                /*console.log(error.responseJSON.message);*/
+            },
+            complete: function() {
+            },
+            success: function(data) {
+                $(".qrcode").html("");
+                $('.authentication-message').html(data.message);
+            }
+        });
+    }
+
+
 
 
 });
