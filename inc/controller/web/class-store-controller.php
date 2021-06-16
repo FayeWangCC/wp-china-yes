@@ -2,6 +2,7 @@
 
 namespace LitePress\WP_China_Yes\Inc\Controller\Web;
 
+use function LitePress\WP_China_Yes\Inc\get_template_part;
 use const LitePress\WP_China_Yes\LPSTORE_BASE_URL;
 
 final class Store_Controller {
@@ -53,9 +54,16 @@ final class Store_Controller {
             $all_local_projects[ $item['TextDomain'] ] = $item;
         }
 
-        $tpl = WCY_ROOT_PATH . 'template/plugins.php';
+        $args = array(
+            'projects'           => $body->data,
+            'all_local_projects' => $all_local_projects,
+            'cats'               => $body->cats,
+            'total'              => $body->total,
+            'totalpages'         => $body->totalpages,
+            'paged'              => $paged,
+        );
 
-        require_once WCY_ROOT_PATH . 'template/index.php';
+        get_template_part( 'plugins', '', $args );
     }
 
     public function themes() {
@@ -78,14 +86,16 @@ final class Store_Controller {
 
         $body = json_decode( $r['body'] );
 
-        $projects   = $body->data;
-        $cats       = $body->cats;
-        $total      = $body->total;
-        $totalpages = $body->totalpages;
+        $args = array(
+            'projects'           => $body->data,
+            // 'all_local_projects' => $all_local_projects,
+            'cats'               => $body->cats,
+            'total'              => $body->total,
+            'totalpages'         => $body->totalpages,
+            'paged'              => $paged,
+        );
 
-        $tpl = WCY_ROOT_PATH . 'template/themes.php';
-
-        require_once WCY_ROOT_PATH . 'template/index.php';
+        get_template_part( 'themes', '', $args );
     }
 
 }

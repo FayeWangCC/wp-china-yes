@@ -2,6 +2,7 @@
 
 namespace LitePress\WP_China_Yes\Inc\Controller\Web;
 
+use function LitePress\WP_China_Yes\Inc\get_template_part;
 use const LitePress\WP_China_Yes\LPSTORE_BASE_URL;
 
 final class Account_Controller {
@@ -15,9 +16,11 @@ final class Account_Controller {
 
         $body = json_decode( $r['body'] );
 
-        $apps   = $body->data;
+        $args = array(
+            'apps'           => $body->data,
+        );
 
-        require_once WCY_ROOT_PATH . 'template/account.php';
+        get_template_part( 'account', '', $args );
     }
 
 }

@@ -2,11 +2,80 @@
 
 namespace LitePress\WP_China_Yes\Template;
 
+use stdClass;
 use function LitePress\WP_China_Yes\Inc\get_how_ago;
+use function LitePress\WP_China_Yes\Inc\get_template_part;
 use function LitePress\WP_China_Yes\Inc\pagination;
 use function LitePress\WP_China_Yes\Inc\prepare_installed_num;
 
+$tpl_args = $tpl_args ?? array(
+        'projects'           => array(),
+        'all_local_projects' => array(),
+        'cats'               => new stdClass(),
+        'total'              => 0,
+        'totalpages'         => 0,
+        'paged'              => 0,
+    );
+
 ?>
+
+<?php add_action( 'wcy_search_form', function () { ?>
+  <form class="search-form search-plugins" method="get">
+    <input type="hidden" name="tab" value="search"/>
+    <label class="screen-reader-text" for="typeselector">搜索插件：</label>
+    <select name="type" id="typeselector">
+      <option value="term" selected='selected'>关键词</option>
+      <option value="author">作者</option>
+      <option value="tag">标签</option>
+    </select>
+    <label class="screen-reader-text" for="search-plugins">搜索插件</label>
+    <input type="search" name="s" id="search-plugins" value="" class="wp-filter-search" placeholder="搜索插件…"/>
+    <input type="submit" id="search-submit" class="button hide-if-js" value="搜索插件"/>
+  </form>
+<?php } ); ?>
+
+<?php get_template_part( 'header' ); ?>
+
+<section class="wcy-filter wp-filter">
+  <div class="row theme-boxshadow">
+    <ul>
+      <li>
+        <i>价格：</i>
+        <span class="filter-cost">
+            <ul class="filter-cost-ul">
+              <li class="all">
+                <a href="<?php remove_query_arg( array(
+                    'min_price',
+                    'max_price'
+                ) ) ?>" <?php echo ! isset( $_GET['max_price'] ) && ! isset( $_GET['min_price'] ) ? 'class="active"' : '' ?>>全部</a>
+              </li>
+              <li>
+                <a href="<?php echo add_query_arg( array(
+                    'max_price' => '0.01'
+                ) ) ?>" <?php echo isset( $_GET['max_price'] ) ? 'class="active"' : '' ?>>免费</a>
+              </li>
+              <li>
+                <a href="<?php echo add_query_arg( array(
+                    'min_price' => '0.01'
+                ) ) ?>" <?php echo isset( $_GET['min_price'] ) ? 'class="active"' : '' ?>>付费</a>
+              </li>
+            </ul>
+          </span>
+      </li>
+      <li>
+        <i>分类：</i>
+        <span class="filter-categories">
+              <ul class="filter-cost-ul">
+                <li class="all"><a href="?" class="categories-a active">全部</a></li>
+                <?php foreach ( (array) $tpl_args['cats']->plugins as $sub_cat ): ?>
+                    <?php echo "<li><a href='?' class='categories-a'>{$sub_cat->terms->name}</a></li>"; ?>
+                <?php endforeach; ?>
+              </ul>
+          </span>
+      </li>
+    </ul>
+  </div>
+</section>
 
 <form id="plugin-filter" method="post">
   <section class="woo-ordering">
@@ -45,14 +114,14 @@ use function LitePress\WP_China_Yes\Inc\prepare_installed_num;
     <div class="tablenav top">
       <div class="alignleft actions"></div>
       <h2 class="screen-reader-text">插件列表导航</h2>
-        <?php pagination( $total, $totalpages, $paged ); ?>
+        <?php pagination( $tpl_args['total'], $tpl_args['totalpages'], $tpl_args['paged'] ); ?>
     </div>
   </section>
 
   <div class="wp-list-table widefat plugin-install">
     <h2 class='screen-reader-text'>插件列表</h2>
     <div id="the-list">
-        <?php foreach ( $projects as $project ): ?>
+        <?php foreach ( $tpl_args['projects'] as $project ): ?>
           <div details_url class="plugin-card plugin-card-<?php echo $project->slug; ?>">
             <div class="plugin-card-top">
               <div class="name column-name">
@@ -239,24 +308,24 @@ use function LitePress\WP_China_Yes\Inc\prepare_installed_num;
                             </dialog>
                           </section>
                         </dialog>
-                      <?php elseif ( key_exists( $project->slug, $all_local_projects ) ): ?>
-                          <?php if ( version_compare( $project->meta->_api_new_version, $all_local_projects[ $project->slug ]['Version'] ?? '1000', '>' ) ): ?>
+                      <?php elseif ( key_exists( $project->slug, $tpl_args['all_local_projects'] ) ): ?>
+                          <?php if ( version_compare( $project->meta->_api_new_version, $tpl_args['all_local_projects'][ $project->slug ]['Version'] ?? '1000', '>' ) ): ?>
                               <?php
                               $args              = array(
                                   '_wpnonce' => wp_create_nonce( 'upgrade-plugin_' . $project->slug ),
                                   'action'   => 'upgrade-plugin',
-                                  'plugin'   => $all_local_projects[ $project->slug ]['Plugin'] ?? '',
+                                  'plugin'   => $tpl_args['all_local_projects'][ $project->slug ]['Plugin'] ?? '',
                               );
                               $plugin_update_url = add_query_arg( $args, admin_url( 'update.php' ) );
                               ?>
                           <a class="update-now button aria-button-if-js"
-                             data-plugin="<?php echo $all_local_projects[ $project->slug ]['Plugin'] ?>"
+                             data-plugin="<?php echo $tpl_args['all_local_projects'][ $project->slug ]['Plugin'] ?>"
                              data-slug="<?php echo $project->slug ?>"
                              href="<?php echo $plugin_update_url ?>"
                              aria-label="更新<?php echo $project->name; ?> <?php echo $project->meta->_api_new_version ?>"
                              data-name="<?php echo $project->name; ?> <?php echo $project->meta->_api_new_version ?>"
                              role="button">立即更新</a>
-                          <?php elseif ( 'Activated' === $all_local_projects[ $project->slug ]['Status'] ?? '' ): ?>
+                          <?php elseif ( 'Activated' === $tpl_args['all_local_projects'][ $project->slug ]['Status'] ?? '' ): ?>
                           <button type="button" class="button button-disabled"
                                   disabled="disabled">已启用
                           </button>
@@ -265,7 +334,7 @@ use function LitePress\WP_China_Yes\Inc\prepare_installed_num;
                               $args              = array(
                                   '_wpnonce' => wp_create_nonce( 'active_' . $project->slug ),
                                   'action'   => 'active',
-                                  'plugin'   => $all_local_projects[ $project->slug ]['Plugin'] ?? '',
+                                  'plugin'   => $tpl_args['all_local_projects'][ $project->slug ]['Plugin'] ?? '',
                               );
                               $plugin_active_url = add_query_arg( $args, admin_url( 'plugins.php' ) );
                               ?>
@@ -350,9 +419,10 @@ use function LitePress\WP_China_Yes\Inc\prepare_installed_num;
     </div>
   </div>
   <div class="tablenav bottom">
-      <?php pagination( $total, $totalpages, $paged ); ?>
+      <?php pagination( $tpl_args['total'], $tpl_args['totalpages'], $tpl_args['paged'] ); ?>
     <br class="clear">
   </div>
 </form>
 
+<?php get_template_part( 'footer' ); ?>
 

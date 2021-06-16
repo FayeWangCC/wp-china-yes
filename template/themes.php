@@ -2,9 +2,78 @@
 
 namespace LitePress\WP_China_Yes\Template;
 
+use stdClass;
+use function LitePress\WP_China_Yes\Inc\get_template_part;
 use function LitePress\WP_China_Yes\Inc\pagination;
 
+$tpl_args = $tpl_args ?? array(
+        'projects'           => array(),
+        'all_local_projects' => array(),
+        'cats'               => new stdClass(),
+        'total'              => 0,
+        'totalpages'         => 0,
+        'paged'              => 0,
+    );
+
 ?>
+
+<?php add_action( 'wcy_search_form', function () { ?>
+  <form class="search-form search-plugins" method="get">
+    <input type="hidden" name="tab" value="search"/>
+    <label class="screen-reader-text" for="typeselector">搜索插件：</label>
+    <select name="type" id="typeselector">
+      <option value="term" selected='selected'>关键词</option>
+      <option value="author">作者</option>
+      <option value="tag">标签</option>
+    </select>
+    <label class="screen-reader-text" for="search-plugins">搜索插件</label>
+    <input type="search" name="s" id="search-plugins" value="" class="wp-filter-search" placeholder="搜索插件…"/>
+    <input type="submit" id="search-submit" class="button hide-if-js" value="搜索插件"/>
+  </form>
+<?php } ); ?>
+
+<?php get_template_part( 'header' ); ?>
+
+<section class="wcy-filter wp-filter">
+  <div class="row theme-boxshadow">
+    <ul>
+      <li>
+        <i>价格：</i>
+        <span class="filter-cost">
+            <ul class="filter-cost-ul">
+              <li class="all">
+                <a href="<?php remove_query_arg( array(
+                    'min_price',
+                    'max_price'
+                ) ) ?>" <?php echo ! isset( $_GET['max_price'] ) && ! isset( $_GET['min_price'] ) ? 'class="active"' : '' ?>>全部</a>
+              </li>
+              <li>
+                <a href="<?php echo add_query_arg( array(
+                    'max_price' => '0.01'
+                ) ) ?>" <?php echo isset( $_GET['max_price'] ) ? 'class="active"' : '' ?>>免费</a>
+              </li>
+              <li>
+                <a href="<?php echo add_query_arg( array(
+                    'min_price' => '0.01'
+                ) ) ?>" <?php echo isset( $_GET['min_price'] ) ? 'class="active"' : '' ?>>付费</a>
+              </li>
+            </ul>
+          </span>
+      </li>
+      <li>
+        <i>分类：</i>
+        <span class="filter-categories">
+              <ul class="filter-cost-ul">
+                <li class="all"><a href="?" class="categories-a active">全部</a></li>
+                <?php foreach ( (array) $tpl_args['cats']->themes as $sub_cat ): ?>
+                    <?php echo "<li><a href='?' class='categories-a'>{$sub_cat->terms->name}</a></li>"; ?>
+                <?php endforeach; ?>
+              </ul>
+          </span>
+      </li>
+    </ul>
+  </div>
+</section>
 
 <form id="plugin-filter" method="post">
   <section class="woo-ordering">
@@ -43,7 +112,7 @@ use function LitePress\WP_China_Yes\Inc\pagination;
     <div class="tablenav top">
       <div class="alignleft actions"></div>
       <h2 class="screen-reader-text">插件列表导航</h2>
-        <?php pagination( $total, $totalpages, $paged ); ?>
+        <?php pagination( $tpl_args['total'], $tpl_args['totalpages'], $tpl_args['paged'] ); ?>
     </div>
   </section>
 
@@ -51,7 +120,7 @@ use function LitePress\WP_China_Yes\Inc\pagination;
     <h2 class='screen-reader-text'>插件列表</h2>
     <div class="theme-browser content-filterable rendered">
       <div class="themes wp-clearfix">
-          <?php foreach ( $projects as $project ): ?>
+          <?php foreach ( $tpl_args['projects'] as $project ): ?>
 
             <div class="theme" tabindex="0" aria-describedby="twentytwentyone-action twentytwentyone-name"
                  data-slug="twentytwentyone">
@@ -151,7 +220,7 @@ use function LitePress\WP_China_Yes\Inc\pagination;
     </div>
   </div>
   <div class="tablenav bottom">
-      <?php pagination( $total, $totalpages, $paged ); ?>
+      <?php pagination( $tpl_args['total'], $tpl_args['totalpages'], $tpl_args['paged'] ); ?>
     <br class="clear">
   </div>
 </form>
@@ -159,5 +228,4 @@ use function LitePress\WP_China_Yes\Inc\pagination;
 
 <p class="no-themes">未找到主题，请重新搜索。</p>
 
-
-
+<?php get_template_part( 'footer' ); ?>

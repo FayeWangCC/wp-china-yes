@@ -95,63 +95,6 @@ namespace LitePress\WP_China_Yes\Template;
       </li>
     </ul>
 
-    <form class="search-form search-plugins" method="get">
-      <input type="hidden" name="tab" value="search"/>
-      <label class="screen-reader-text" for="typeselector">搜索插件：</label>
-      <select name="type" id="typeselector">
-        <option value="term" selected='selected'>关键词</option>
-        <option value="author">作者</option>
-        <option value="tag">标签</option>
-      </select>
-      <label class="screen-reader-text" for="search-plugins">搜索插件</label>
-      <input type="search" name="s" id="search-plugins" value="" class="wp-filter-search" placeholder="搜索插件…"/>
-      <input type="submit" id="search-submit" class="button hide-if-js" value="搜索插件"/></form>
+    <?php do_action( 'wcy_search_form' ); ?>
   </div>
 
-  <section class="wcy-filter wp-filter">
-    <div class="row theme-boxshadow">
-      <ul>
-        <li>
-          <i>价格：</i>
-          <span class="filter-cost">
-            <ul class="filter-cost-ul">
-              <li class="all">
-                <a href="<?php remove_query_arg( array(
-                    'min_price',
-                    'max_price'
-                ) ) ?>" <?php echo ! isset( $_GET['max_price'] ) && ! isset( $_GET['min_price'] ) ? 'class="active"' : '' ?>>全部</a>
-              </li>
-              <li>
-                <a href="<?php echo add_query_arg( array(
-                    'max_price' => '0.01'
-                ) ) ?>" <?php echo isset( $_GET['max_price'] ) ? 'class="active"' : '' ?>>免费</a>
-              </li>
-              <li>
-                <a href="<?php echo add_query_arg( array(
-                    'min_price' => '0.01'
-                ) ) ?>" <?php echo isset( $_GET['min_price'] ) ? 'class="active"' : '' ?>>付费</a>
-              </li>
-            </ul>
-          </span>
-        </li>
-        <li>
-          <i>分类：</i>
-          <span class="filter-categories">
-              <ul class="filter-cost-ul">
-                <li class="all"><a href="?" class="categories-a active">全部</a></li>
-                <?php foreach ( (array) $cats as $type => $sub_cats ): ?>
-                    <?php foreach ( (array) $sub_cats as $sub_cat ): ?>
-                        <?php echo "<li><a href='?' class='categories-a {$type}-cat'>{$sub_cat->terms->name}</a></li>"; ?>
-                    <?php endforeach; ?>
-                <?php endforeach; ?>
-              </ul>
-          </span>
-        </li>
-      </ul>
-    </div>
-  </section>
-
-    <?php require_once $tpl ?>
-
-  <span class="spinner"></span>
-</div>
