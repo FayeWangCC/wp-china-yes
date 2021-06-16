@@ -206,8 +206,18 @@ $tpl_args = $tpl_args ?? array(
                                                 class="product-quantity">×&nbsp;1</strong>
                                         <dl class="variation">
                                           <dt class="variation-">供应商:</dt>
-                                          <dd class="variation-"><p><a
-                                                      href="https://litepress.cn/store/archives/product-vendors/"><?php echo $project->vendor->name ?></a>
+                                          <dd class="variation-"><p>
+                                                  <?php if ( ! empty( $project->vendor ) ): ?>
+                                                    作者：
+                                                      <?php
+                                                      /**
+                                                       * TODO:点击作者名字应该筛选该作者的作品
+                                                       */
+                                                      ?>
+                                                    <a href="https://litepress.cn/store/archives/product-vendors/"><?php echo $project->vendor->name ?></a>
+                                                  <?php else: ?>
+                                                    作者：未知
+                                                  <?php endif; ?>
                                             </p>
                                           </dd>
                                         </dl>
@@ -374,7 +384,17 @@ $tpl_args = $tpl_args ?? array(
                 <p><?php echo $project->short_description; ?></p>
                 <p class="authors">
                   <cite>
-                    作者：<a href="https://litepress.cn/store/archives/product-vendors/"><?php echo $project->vendor->name ?></a>
+                      <?php if ( ! empty( $project->vendor ) ): ?>
+                        作者：
+                          <?php
+                          /**
+                           * TODO:点击作者名字应该筛选该作者的作品
+                           */
+                          ?>
+                        <a href="https://litepress.cn/store/archives/product-vendors/"><?php echo $project->vendor->name ?></a>
+                      <?php else: ?>
+                        作者：未知
+                      <?php endif; ?>
                   </cite>
                 </p>
               </div>

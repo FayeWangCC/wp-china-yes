@@ -134,7 +134,17 @@ $tpl_args = $tpl_args ?? array(
                   </span>
               </a>
               <div class="theme-author">
-                作者：<?php echo $project->vendor->name ?: '' ?>
+                  <?php if ( ! empty( $project->vendor ) ): ?>
+                    作者：
+                      <?php
+                      /**
+                       * TODO:点击作者名字应该筛选该作者的作品
+                       */
+                      ?>
+                    <a href="https://litepress.cn/store/archives/product-vendors/"><?php echo $project->vendor->name ?></a>
+                  <?php else: ?>
+                    作者：未知
+                  <?php endif; ?>
               </div>
 
               <div class="theme-id-container">
@@ -170,7 +180,19 @@ $tpl_args = $tpl_args ?? array(
                     <div class="wp-full-overlay-sidebar-content">
                       <div class="install-theme-info">
                         <h3 class="theme-name"><?php echo $project->name ?: '' ?></h3>
-                        <span class="theme-by">作者：<?php echo $project->vendor->name ?: '' ?></span>
+                        <span class="theme-by">
+                          <?php if ( ! empty( $project->vendor ) ): ?>
+                            作者：
+                              <?php
+                              /**
+                               * TODO:点击作者名字应该筛选该作者的作品
+                               */
+                              ?>
+                            <a href="https://litepress.cn/store/archives/product-vendors/"><?php echo $project->vendor->name ?></a>
+                          <?php else: ?>
+                            作者：未知
+                          <?php endif; ?>
+                        </span>
                         <img class="theme-screenshot" src="<?php echo $project->thumbnail_src ?>" alt="">
 
                         <div class="theme-details">
