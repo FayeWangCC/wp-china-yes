@@ -16,6 +16,6 @@ add_action( 'admin_enqueue_scripts', function ( $page ) {
 
     wp_enqueue_script( 'updates', admin_url('js/updates.min.js'), array(), VERSION );
 
-    wp_enqueue_script( 'url', admin_url('assets/url.min.js'), array(), VERSION );
-    wp_enqueue_script( 'qrcode', admin_url('assets/jquery.qrcode.min.js'), array(), VERSION );
+    wp_enqueue_script( 'url', WCY_ROOT_URL . 'assets/url.min.js', array(), VERSION );
+    wp_enqueue_script( 'qrcode', WCY_ROOT_URL . 'assets/jquery.qrcode.min.js', array(), VERSION );
 } );
