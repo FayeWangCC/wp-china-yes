@@ -28,8 +28,7 @@ namespace LitePress\WP_China_Yes\Template;
 
           <a class="button logout">注销</a>
         <?php else: ?>
-          <a class="thickbox button button-primary" title="登录"
-             href="#TB_inline?height=300&width=300&inlineId=login-1">
+          <a class="thickbox button button-primary" title="登录" href="#TB_inline?height=300&width=300&inlineId=login-1">
             登录 LitePress.cn 账号
           </a>
           <a class="thickbox button " title="注册" href="https://litepress.cn/register">
@@ -85,16 +84,16 @@ namespace LitePress\WP_China_Yes\Template;
            aria-current="page">插件</a>
       </li>
       <li class='plugin-install-popular'>
-        <a href='<?php echo admin_url( 'admin.php?page=lpstore&subpage=themes' ); ?>'>主题</a>
+        <a href='<?php echo admin_url( 'admin.php?page=lpstore&subpage=themes' ); ?>' <?php echo ( 'themes' === ( $_GET['subpage'] ?? '' ) ) ? 'class="current"' : '' ?>>主题</a>
       </li>
       <li class='plugin-install-recommended'>
-        <a href='<?php echo admin_url( 'admin.php?page=lpstore&subpage=account' ); ?>'>已购</a>
+        <a href='<?php echo admin_url( 'admin.php?page=lpstore&subpage=account' ); ?>' <?php echo ( 'account' === ( $_GET['subpage'] ?? '' ) ) ? 'class="current"' : '' ?>>已购</a>
       </li>
       <li class='plugin-install-favorites'>
         <a target="_blank" href='https://litepress.cn/store/vendor-registration'>入驻</a>
       </li>
     </ul>
 
-    <?php do_action( 'wcy_search_form' ); ?>
+      <?php do_action( 'wcy_search_form' ); ?>
   </div>
 
