@@ -44,7 +44,9 @@ $tpl_args = $tpl_args ?? array(
       <?php foreach ( (array) $tpl_args['apps'] as $app ): ?>
         <tr class="account_list_tbody_first" data-slug="bbpress" data-plugin="bbpress/bbpress.php">
           <th scope="row" class="check-column">
-            <div><img src="<?php echo $app->thumbnail_src ?>" class="" alt=""></div>
+            <div>
+              <img src="<?php echo $app->thumbnail_src ?: 'https://avatar.ibadboy.net/avatar/' . md5( rand() ) . '?d=identicon&s=256' ?>"
+                   class="" alt="" width="56" height="56"></div>
           </th>
           <td class="plugin-title column-primary account_list_tbody_second">
             <strong><?php echo $app->name ?></strong>
