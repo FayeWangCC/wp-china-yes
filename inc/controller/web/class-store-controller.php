@@ -27,7 +27,7 @@ final class Store_Controller {
             $args['max_price'] = $_GET['max_price'];
         }
 
-        $r = wp_remote_get( add_query_arg( $args, LPSTORE_BASE_URL . 'products' ) );
+        $r = wp_remote_get( add_query_arg( $args, LPSTORE_BASE_URL . 'products' ), array( 'timeout' => 10 ) );
         if ( is_wp_error( $r ) ) {
             echo $r->get_error_message();
             exit;
@@ -78,7 +78,7 @@ final class Store_Controller {
             'category' => $category,
             'type'     => 'theme',
         );
-        $r    = wp_remote_get( add_query_arg( $args, LPSTORE_BASE_URL . 'products' ) );
+        $r    = wp_remote_get( add_query_arg( $args, LPSTORE_BASE_URL . 'products' ), array( 'timeout' => 10 )  );
         if ( is_wp_error( $r ) ) {
             echo $r->get_error_message();
             exit;
