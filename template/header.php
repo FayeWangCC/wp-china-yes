@@ -20,17 +20,17 @@ namespace LitePress\WP_China_Yes\Template;
         $user_info = $wp_china_yes->get_user_info();
         ?>
         <?php if ( ! empty( $user_info->get_token() ) ): ?>
-          你已登录为：
+          你已登录 LitePress.cn 账号:
           <a class="login-item" target="_blank"
              href="https://litepress.cn/user/<?php echo $user_info->get_user_nicename() ?>">
             <span class="display-name"><?php echo $user_info->get_user_display_name() ?></span>
           </a>
 
-          <a class="logout">注销？</a>
+          <a class="button logout">注销</a>
         <?php else: ?>
           <a class="thickbox button button-primary" title="登录"
              href="#TB_inline?height=300&width=300&inlineId=login-1">
-            登录
+            登录 LitePress.cn 账号
           </a>
           <a class="thickbox button " title="注册" href="https://litepress.cn/register">
             注册
@@ -38,7 +38,7 @@ namespace LitePress\WP_China_Yes\Template;
         <?php endif; ?>
       <div id="login-1" style="display:none;">
         <div class="login">
-          <h2>使用你的LitePress.cn账户登录</h2>
+          <h2>登录 LitePress.cn 账号</h2>
 
           <p>
             <label for="user_login">用户名或电子邮箱地址</label>
