@@ -132,7 +132,7 @@ $(function () {
         $(this).parent().parent().parent().parent().hide();
         $("section.wp-pay").show().siblings().hide();
         const product_id = $(this).attr("product_id");
-        localStorage.setItem("local_product_id",product_id);
+
         const coupon_code = $(this).parent().parent().parent().parent().find("#coupon_code").val();
         $.ajax({
             url: api_domain + "/lp-api/v1/orders",
@@ -144,22 +144,61 @@ $(function () {
             },
             success: function (data) {
                 console.log(data);
-                console.log(data.pay_url);
+                localStorage.setItem("local_order_id",data.id);
                 if (data.pay_url === undefined || data.pay_url.length === 0) {
                     $(".qrcode").html("支付成功")
                 } else {
                     $(".qrcode").html("").qrcode(data.pay_url);
-                    $('.authentication-message').html("");
+                    $('.authentication-message').html("支付状态：查询中<i\n" + " class=\"loading\"></i>");
                     setInterval(function(){ Payment_query();}, 1000)
                 }
             },
             error: function (error) {
                 console.log(error);
+                $('.authentication-message').html("发生未知错误，请重试");
             },
             complete: function () {
             },
         })
     })
+
+
+    /*封装支付查询*/
+    function Payment_query(){
+        $.ajax({
+            url: api_domain + "/lp-api/v1/orders/is_paid",
+            type: "GET",
+            dataType:"JSON",
+            data: {
+                order_id:localStorage.getItem("local_order_id"),
+            },
+            beforeSend: function (XMLHttpRequest) {
+                /*XMLHttpRequest.setRequestHeader("X-WP-Nonce", wprpv_rest_api_nonce);*/
+            },
+            error:function(error) {
+                /*            if( error.responseJSON.message.length !== 0 ) {
+                                /!*$(".qrcode").html("");*!/
+                                $('.authentication-message').html(error.responseJSON.message);
+                            }*/
+                console.log(error);
+            },
+            complete: function() {
+            },
+            success: function(data) {
+                /*console.log(data);*/
+                if(data.status ==="unpaid" ){
+                    status = "未支付"
+                }
+                else if(data.status ==="paid"){
+                    status = "支付成功";
+                    $(".qrcode").html("");
+                }
+                $('.authentication-message').html("支付状态："+status);
+
+            }
+        });
+    }
+
 
 
     /*登录流程*/
@@ -202,33 +241,7 @@ $(function () {
         })
     })
 
-    /*封装支付查询*/
-    function Payment_query(){
-        $.ajax({
-            url: api_domain + "/lp-api/v1/orders/is_paid",
-            type: "GET",
-            dataType:"JSON",
-            data: {
-                order_id:localStorage.getItem("local_order_id"),
-            },
-            beforeSend: function (XMLHttpRequest) {
-                /*XMLHttpRequest.setRequestHeader("X-WP-Nonce", wprpv_rest_api_nonce);*/
-            },
-            error:function(error) {
-                if( error.responseJSON.message.length !== 0 ) {
-                    /*$(".qrcode").html("");*/
-                    $('.authentication-message').html(error.responseJSON.message);
-                }
-                /*console.log(error.responseJSON.message);*/
-            },
-            complete: function() {
-            },
-            success: function(data) {
-                $(".qrcode").html("");
-                $('.authentication-message').html(data.message);
-            }
-        });
-    }
+
 
 
 
