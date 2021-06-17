@@ -122,7 +122,7 @@ $tpl_args = $tpl_args ?? array(
     <h2 class='screen-reader-text'>插件列表</h2>
     <div id="the-list">
         <?php foreach ( $tpl_args['projects'] as $project ): ?>
-          <div details_url class="plugin-card plugin-card-<?php echo $project->slug; ?>">
+          <div details_url class="plugin-card plugin-card-<?php echo $project->slug; ?> type-<?php echo $project->type ?>">
             <div class="plugin-card-top">
               <div class="name column-name">
                   <?php
@@ -140,6 +140,7 @@ $tpl_args = $tpl_args ?? array(
                      class="thickbox open-plugin-details-modal">
                       <?php echo $project->name; ?>
                     <img src="<?php echo $project->thumbnail_src; ?>" class="plugin-icon" alt=""/>
+                      <section class="img-box"></section>
                   </a>
                 </h3>
               </div>

@@ -672,3 +672,35 @@ table.shop_table tfoot th {
     display: block;
     margin-bottom: 30px;
 }
+.type-external .plugin-icon:before{
+content: "";
+}
+.img-box{
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 128px;
+    height: 128px;
+    margin: 0 20px 20px 0;
+    overflow: hidden;
+}
+.type-external  .img-box:after {
+    content: "外部";
+    position: absolute;
+    font-size: 10px;
+    left: 82px;
+    top: 14px;
+    background: var(--main-color);
+    padding: 5px 10px;
+    color: #fff;
+    width: 100px;
+    text-align: center;
+    -webkit-transform: translateY(-50%) translateX(-50%) translateX(35px) rotate(
+            45deg
+    );
+    -ms-transform: translateY(-50%) translateX(-50%) translateX(35px) rotate(45deg);
+    transform: translateY(-50%) translateX(-50%) translateX(35px) rotate(45deg);
+}
+.type-external  .column-rating,.type-external  .column-downloaded{
+    display: none;
+}
