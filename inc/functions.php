@@ -241,3 +241,28 @@ function get_template_part( string $slug, string $name = '', array $tpl_args = a
         require_once WCY_ROOT_PATH . "template/{$slug}-{$name}.php";
     }
 }
+
+/**
+ * 获取产品价格的HTML
+ */
+function prepare_price_for_html( int $price, bool $echo = true ): string {
+    $html = '';
+    if ( empty( $price ) || 0 === $price ) {
+        $html .= '免费';
+    } else {
+        $html .= <<<html
+<span class="woocommerce-Price-amount amount">
+  <bdi>
+    <span class="woocommerce-Price-currencySymbol">¥</span>
+    <b class="total_price">{$price}</b>
+  </bdi>
+</span>
+html;
+    }
+
+    if ( $echo ) {
+      echo $html;
+    }
+
+    return $html;
+}

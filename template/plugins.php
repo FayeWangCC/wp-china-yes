@@ -7,6 +7,7 @@ use function LitePress\WP_China_Yes\Inc\get_how_ago;
 use function LitePress\WP_China_Yes\Inc\get_template_part;
 use function LitePress\WP_China_Yes\Inc\pagination;
 use function LitePress\WP_China_Yes\Inc\prepare_installed_num;
+use function LitePress\WP_China_Yes\Inc\prepare_price_for_html;
 
 $tpl_args = $tpl_args ?? array(
         'projects'           => array(),
@@ -245,9 +246,7 @@ $tpl_args = $tpl_args ?? array(
                                         </dl>
                                       </td>
                                       <td class="product-total">
-                                          <span class="woocommerce-Price-amount amount"><bdi><span
-                                                      class="woocommerce-Price-currencySymbol">¥</span><b
-                                                      class="total_price"><?php echo $project->price ?></b></bdi></span>
+                                          <?php prepare_price_for_html( (int) $project->price ); ?>
                                       </td>
                                     </tr>
                                     </tbody>
@@ -255,17 +254,26 @@ $tpl_args = $tpl_args ?? array(
 
                                     <tr class="cart-subtotal">
                                       <th>小计</th>
-                                      <td><span class="woocommerce-Price-amount amount"><bdi><span
-                                                    class="woocommerce-Price-currencySymbol">¥</span><b
-                                                    class="subtotal_price"><?php echo $project->price ?></b></bdi></span>
+                                      <td>
+                                        <span class="woocommerce-Price-amount amount">
+                                          <bdi>
+                                            <span class="woocommerce-Price-currencySymbol">¥</span>
+                                            <b class="subtotal_price"><?php echo $project->price ?></b>
+                                          </bdi>
+                                        </span>
                                       </td>
                                     </tr>
 
                                     <tr class="order-total">
                                       <th>合计</th>
-                                      <td><strong><span
-                                                  class="woocommerce-Price-amount amount order-total-price"><bdi><span
-                                                      class="woocommerce-Price-currencySymbol">¥</span><b></b></bdi></span></strong>
+                                      <td>
+                                        <strong>
+                                          <span class="woocommerce-Price-amount amount order-total-price"><bdi>
+                                              <span class="woocommerce-Price-currencySymbol">¥</span>
+                                              <b></b>
+                                            </bdi>
+                                          </span>
+                                        </strong>
                                       </td>
                                     </tr>
 
@@ -390,8 +398,10 @@ $tpl_args = $tpl_args ?? array(
                            data-name="<?php echo $project->name; ?> <?php echo $project->meta->_api_new_version ?>">现在安装</a>
                       <?php endif; ?>
                   </li>
-                  <li><span class="woocommerce-Price-amount amount"><bdi><span
-                                class="woocommerce-Price-currencySymbol">¥</span><?php echo $project->price ?></bdi></span>
+                  <li>
+                    <td class="product-total">
+                        <?php prepare_price_for_html( (int) $project->price ); ?>
+                    </td>
                   </li>
                   <li>
                     <a href="<?php echo $plugin_details_url; ?>"
