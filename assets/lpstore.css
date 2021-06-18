@@ -602,6 +602,11 @@ table.shop_table tfoot th {
     font-size: 16px;
     font-weight: bold;
 }
+.woocommerce-Price-amount.free {
+    color: var(--main-color);
+    font-size: 15px;
+    font-weight: bold;
+}
 
 .woocommerce-Price-currencySymbol {
     margin-right: 2px;

@@ -248,7 +248,12 @@ function get_template_part( string $slug, string $name = '', array $tpl_args = a
 function prepare_price_for_html( int $price, bool $echo = true ): string {
     $html = '';
     if ( empty( $price ) || 0 === $price ) {
-        $html .= '免费';
+        $html .= '  <span class="woocommerce-Price-amount free">
+  <bdi>
+    
+    <b class="total_price">免费</b>
+  </bdi>
+</span>                 ';
     } else {
         $html .= <<<html
 <span class="woocommerce-Price-amount amount">
