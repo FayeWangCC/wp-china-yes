@@ -240,7 +240,7 @@ $(function () {
             },
         })
     })
-
+/*搜索*/
     $(".wp-filter-search").on("input", function () {
         const input_val = $(this).val();
         const href = location.href;
