@@ -10,13 +10,13 @@ final class Store_Controller {
     public function plugins() {
         $paged = absint( isset( $_GET['paged'] ) && $_GET['paged'] > 0 ? $_GET['paged'] : 1 );
 
-        $category = '15';
-        $category .= isset( $_GET['sub_cat'] ) ? $_GET['sub_cat'] : '';
+        $category = isset( $_GET['sub_cat'] ) ? $_GET['sub_cat'] : '15';
 
         $args = array(
-            'orderby'  => 'popularity',
             'page'     => $paged,
             'category' => $category,
+            'order'    => $_GET['order'] ?? 'desc',
+            'orderby'  => $_GET['orderby'] ?? 'popularity',
         );
 
         if ( isset( $_GET['min_price'] ) ) {
@@ -78,7 +78,7 @@ final class Store_Controller {
             'category' => $category,
             'type'     => 'theme',
         );
-        $r    = wp_remote_get( add_query_arg( $args, LPSTORE_BASE_URL . 'products' ), array( 'timeout' => 10 )  );
+        $r    = wp_remote_get( add_query_arg( $args, LPSTORE_BASE_URL . 'products' ), array( 'timeout' => 10 ) );
         if ( is_wp_error( $r ) ) {
             echo $r->get_error_message();
             exit;
@@ -87,12 +87,12 @@ final class Store_Controller {
         $body = json_decode( $r['body'] );
 
         $args = array(
-            'projects'           => $body->data,
+            'projects'   => $body->data,
             // 'all_local_projects' => $all_local_projects,
-            'cats'               => $body->cats,
-            'total'              => $body->total,
-            'totalpages'         => $body->totalpages,
-            'paged'              => $paged,
+            'cats'       => $body->cats,
+            'total'      => $body->total,
+            'totalpages' => $body->totalpages,
+            'paged'      => $paged,
         );
 
         get_template_part( 'themes', '', $args );
