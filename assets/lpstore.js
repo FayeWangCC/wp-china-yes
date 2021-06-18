@@ -241,9 +241,23 @@ $(function () {
         })
     })
 
+    $(".wp-filter-search").on("input", function () {
+        const input_val = $(this).val();
+        const href = location.href;
+        const slug = $("#typeselector").val()
+        $(this).keydown(function (event) {
+            if (event.keyCode === 13) {
+                $(location).prop('href', href + "&search=" + input_val + "&search_by="+ slug);
 
+            }
+        })
 
+    });
 
+    window.onload = function(){
+        $(".wp-filter-search").val(Url.queryString("search"))
+        $("#typeselector").val(Url.queryString("search_by"))
+    }
 
 
 });
