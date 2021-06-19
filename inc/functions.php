@@ -2,7 +2,9 @@
 
 namespace LitePress\WP_China_Yes\Inc;
 
+use LitePress\WP_China_Yes\Inc\DataObject\Product_Type;
 use LitePress\WP_China_Yes\Inc\DataObject\Switch_Status;
+use const LitePress\WP_China_Yes\LPSTORE_BASE_URL;
 
 function get_curl_version() {
     $curl_version = '1.0.0';
@@ -266,8 +268,48 @@ html;
     }
 
     if ( $echo ) {
-      echo $html;
+        echo $html;
     }
 
     return $html;
+}
+
+function get_products_from_lpcn( string $product_type ) {
+    $paged = absint( isset( $_GET['paged'] ) && $_GET['paged'] > 0 ? $_GET['paged'] : 1 );
+
+    $category = $_GET['sub_cat'] ?? '';
+    if ( empty( $category ) ) {
+        $category = Product_Type::Plugin === $product_type ? '15' : '17';
+    }
+
+    $args = array(
+        'page'     => $paged,
+        'category' => $category,
+        'order'    => $_GET['order'] ?? 'desc',
+        'orderby'  => $_GET['orderby'] ?? 'popularity',
+    );
+
+    if ( isset( $_GET['min_price'] ) ) {
+        $args['min_price'] = $_GET['min_price'];
+    }
+
+    if ( isset( $_GET['max_price'] ) ) {
+        $args['max_price'] = $_GET['max_price'];
+    }
+
+    if ( isset( $_GET['search'] ) ) {
+        $args['search'] = $_GET['search'];
+    }
+
+    if ( isset( $_GET['search_by'] ) ) {
+        $args['search_by'] = $_GET['search_by'];
+    }
+
+    $r = wp_remote_get( add_query_arg( $args, LPSTORE_BASE_URL . 'products' ), array( 'timeout' => 10 ) );
+    if ( is_wp_error( $r ) ) {
+        echo $r->get_error_message();
+        exit;
+    }
+
+    return json_decode( $r['body'] );
 }

@@ -6,11 +6,11 @@ use LitePress\WP_China_Yes\Inc\Controller\Api\Coupon_Controller;
 use LitePress\WP_China_Yes\Inc\Controller\Api\Order_Controller;
 use LitePress\WP_China_Yes\Inc\Controller\Api\User_Controller;
 use LitePress\WP_China_Yes\Inc\Controller\Web\Account_Controller;
-use LitePress\WP_China_Yes\Inc\Controller\Web\Store_Controller;
+use LitePress\WP_China_Yes\Inc\Controller\Web\Product_Controller;
 use WP_REST_Server;
 
 function store_web_route() {
-    $store_web = new Store_Controller();
+    $product_controller = new Product_Controller();
 
     $route = 'plugins';
     if ( key_exists( 'subpage', $_GET ) ) {
@@ -19,10 +19,10 @@ function store_web_route() {
 
     switch ( $route ) {
         case 'plugins':
-            $store_web->plugins();
+            $product_controller->plugins();
             break;
         case 'themes':
-            $store_web->themes();
+            $product_controller->themes();
             break;
         case 'account':
             $account = new Account_Controller();

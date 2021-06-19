@@ -25,12 +25,13 @@ require_once 'inc/class-core.php';
 require_once 'inc/store-route.php';
 require_once 'inc/settings.php';
 require_once 'inc/enqueue-scripts.php';
-require_once 'inc/controller/web/class-store-controller.php';
+require_once 'inc/controller/web/class-product-controller.php';
 require_once 'inc/controller/web/class-account-controller.php';
 require_once 'inc/controller/api/class-order-controller.php';
 require_once 'inc/controller/api/class-coupon-controller.php';
 require_once 'inc/controller/api/class-user-controller.php';
 require_once 'inc/class-plugin-install.php';
+require_once 'inc/data-object/class-product-type.php';
 
 $wp_china_yes = Options::get_instance();
 
