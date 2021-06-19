@@ -283,6 +283,7 @@ function get_products_from_lpcn( string $product_type ) {
     }
 
     $args = array(
+        'type'     => $product_type,
         'page'     => $paged,
         'category' => $category,
         'order'    => $_GET['order'] ?? 'desc',
