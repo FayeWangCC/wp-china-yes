@@ -27,6 +27,14 @@ final class Store_Controller {
             $args['max_price'] = $_GET['max_price'];
         }
 
+        if ( isset( $_GET['search'] ) ) {
+            $args['search'] = $_GET['search'];
+        }
+
+        if ( isset( $_GET['search_by'] ) ) {
+            $args['search_by'] = $_GET['search_by'];
+        }
+
         $r = wp_remote_get( add_query_arg( $args, LPSTORE_BASE_URL . 'products' ), array( 'timeout' => 10 ) );
         if ( is_wp_error( $r ) ) {
             echo $r->get_error_message();
