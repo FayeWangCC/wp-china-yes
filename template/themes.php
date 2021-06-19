@@ -27,9 +27,9 @@ $tpl_args = $tpl_args ?? array(
       <option value="author">作者</option>
       <option value="tag">标签</option>
     </select>
-    <label class="screen-reader-text" for="search-plugins">搜索插件</label>
-    <input type="search" name="s" id="search-plugins" value="" class="wp-filter-search" placeholder="搜索插件…"/>
-    <input type="submit" id="search-submit" class="button hide-if-js" value="搜索插件"/>
+    <label class="screen-reader-text" for="search-plugins">搜索主题</label>
+    <input type="search" name="s" id="search-plugins" value="" class="wp-filter-search" placeholder="搜索主题…"/>
+    <input type="submit" id="search-submit" class="button hide-if-js" value="搜索主题"/>
   </form>
 <?php } ); ?>
 
@@ -43,20 +43,22 @@ $tpl_args = $tpl_args ?? array(
         <span class="filter-cost">
             <ul class="filter-cost-ul">
               <li class="all">
-                <a href="<?php remove_query_arg( array(
+                <a href="<?php echo remove_query_arg( array(
                     'min_price',
                     'max_price'
                 ) ) ?>" <?php echo ! isset( $_GET['max_price'] ) && ! isset( $_GET['min_price'] ) ? 'class="active"' : '' ?>>全部</a>
               </li>
               <li>
                 <a href="<?php echo add_query_arg( array(
-                    'max_price' => '0.01'
-                ) ) ?>" <?php echo isset( $_GET['max_price'] ) ? 'class="active"' : '' ?>>免费</a>
+                    'min_price' => '0',
+                    'max_price' => '0.01',
+                ) ) ?>" <?php echo isset( $_GET['max_price'] ) && '0.01' === $_GET['max_price'] ? 'class="active"' : '' ?>>免费</a>
               </li>
               <li>
                 <a href="<?php echo add_query_arg( array(
-                    'min_price' => '0.01'
-                ) ) ?>" <?php echo isset( $_GET['min_price'] ) ? 'class="active"' : '' ?>>付费</a>
+                    'min_price' => '0.01',
+                    'max_price' => '100000',
+                ) ) ?>" <?php echo isset( $_GET['min_price'] ) && '0.01' === $_GET['min_price'] ? 'class="active"' : '' ?>>付费</a>
               </li>
             </ul>
           </span>
@@ -65,9 +67,17 @@ $tpl_args = $tpl_args ?? array(
         <i>分类：</i>
         <span class="filter-categories">
               <ul class="filter-cost-ul">
-                <li class="all"><a href="?" class="categories-a active">全部</a></li>
+                <li class="all">
+                  <a href="<?php echo remove_query_arg( array( 'sub_cat' ) ) ?>"
+                     class="categories-a <?php echo ! isset( $_GET['sub_cat'] ) ? 'active' : '' ?>">全部</a></li>
                 <?php foreach ( (array) $tpl_args['cats']->themes as $sub_cat ): ?>
-                    <?php echo "<li><a href='?' class='categories-a'>{$sub_cat->terms->name}</a></li>"; ?>
+                    <?php
+                    printf( '<li><a href="%s" class="categories-a %s">%s</a></li>',
+                        add_query_arg( array( 'sub_cat' => $sub_cat->term_id ) ),
+                        isset( $_GET['sub_cat'] ) && (string) $sub_cat->term_id === $_GET['sub_cat'] ? 'active' : '',
+                        $sub_cat->terms->name
+                    );
+                    ?>
                 <?php endforeach; ?>
               </ul>
           </span>
@@ -79,31 +89,41 @@ $tpl_args = $tpl_args ?? array(
 <form id="plugin-filter" method="post">
   <section class="woo-ordering">
     <div class="f-sort">
-      <a href="javascript:;" class="sort_popularity curr" title="按销量排序" rel="popularity">
+      <a href="<?php echo add_query_arg( array( 'orderby' => 'popularity' ) ); ?>"
+         class="sort_popularity <?php echo ! isset( $_GET['orderby'] ) || 'popularity' === $_GET['orderby'] ? 'curr' : '' ?>"
+         title="按销量排序" rel="popularity">
         <span class="fs-tit">销量</span>
         <em class="fs-down">
           <span class="dashicons dashicons-arrow-down-alt"></span>
         </em>
       </a>
-      <a href="javascript:;" class="sort_rating" title="按好评度排序" rel="rating">
+      <a href="<?php echo add_query_arg( array( 'orderby' => 'rating' ) ); ?>"
+         class="sort_rating <?php echo isset( $_GET['orderby'] ) && 'rating' === $_GET['orderby'] ? 'curr' : '' ?>"
+         title="按好评度排序" rel="rating">
         <span class="fs-tit">好评度</span>
         <em class="fs-down">
           <span class="dashicons dashicons-arrow-down-alt"></span>
         </em>
       </a>
-      <a href="javascript:;" class="sort_date" title="按最新内容排序" rel="date">
+      <a href="<?php echo add_query_arg( array( 'orderby' => 'date' ) ); ?>"
+         class="sort_date <?php echo isset( $_GET['orderby'] ) && 'date' === $_GET['orderby'] ? 'curr' : '' ?>"
+         title="按最新内容排序" rel="date">
         <span class="fs-tit">新品</span>
         <em class="fs-down">
           <span class="dashicons dashicons-arrow-down-alt"></span>
         </em>
       </a>
-      <a href="javascript:;" class="sort_price" title="按价格从低到高排序" rel="price">
+      <a href="<?php echo add_query_arg( array( 'orderby' => 'price', 'order' => 'asc' ) ); ?>"
+         class="sort_price <?php echo isset( $_GET['orderby'] ) && 'price' === $_GET['orderby'] && isset( $_GET['order'] ) && 'asc' === $_GET['order'] ? 'curr' : '' ?>"
+         title="按价格从低到高排序" rel="price">
         <span class="fs-tit">价格</span>
         <em class="fs-up">
           <span class="dashicons dashicons-arrow-up-alt"></span>
         </em>
       </a>
-      <a href="javascript:;" class="sort_price-desc" title="按价格从高到低排序" rel="price-desc">
+      <a href="<?php echo add_query_arg( array( 'orderby' => 'price', 'order' => 'desc' ) ); ?>"
+         class="sort_price-desc <?php echo isset( $_GET['orderby'] ) && 'price' === $_GET['orderby'] && ( ! isset( $_GET['order'] ) || 'desc' === $_GET['order'] ) ? 'curr' : '' ?>"
+         title="按价格从高到低排序" rel="price-desc">
         <span class="fs-tit">价格</span>
         <em class="fs-down">
           <span class="dashicons dashicons-arrow-down-alt"></span>
@@ -118,7 +138,7 @@ $tpl_args = $tpl_args ?? array(
   </section>
 
   <div class="wp-list-table widefat plugin-install">
-    <h2 class='screen-reader-text'>插件列表</h2>
+    <h2 class='screen-reader-text'>主题列表</h2>
     <div class="theme-browser content-filterable rendered">
       <div class="themes wp-clearfix">
           <?php foreach ( $tpl_args['projects'] as $project ): ?>
