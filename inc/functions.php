@@ -238,9 +238,9 @@ function get_switch( string $name, string $value, string $type = 'advanced' ) {
  */
 function get_template_part( string $slug, string $name = '', array $tpl_args = array() ) {
     if ( empty( $name ) ) {
-        require_once WCY_ROOT_PATH . "template/{$slug}.php";
+        require WCY_ROOT_PATH . "template/{$slug}.php";
     } else {
-        require_once WCY_ROOT_PATH . "template/{$slug}-{$name}.php";
+        require WCY_ROOT_PATH . "template/{$slug}-{$name}.php";
     }
 }
 
