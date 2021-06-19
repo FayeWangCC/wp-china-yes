@@ -107,19 +107,21 @@ $(function () {
     })
 
     $(".buy_plugin_btn").click(function () {
-
-        $("section.protocol").show().siblings().hide();
+        $("section.checkout").show().siblings().hide();
+        count();
+        $(".buy_agreement").click(function () {
+            $("section.checkout").hide();
+            $("section.protocol").show();
+        })
         $(".agree_btn").click(function () {
-            $(this).parent().parent().hide();
-            count();
-            $("section.checkout").show().siblings().hide();
+            $(this).parent().parent().hide().siblings().show();
         })
     });
 
 
     /*计算折扣金额*/
     function count() {
-        $("#TB_ajaxContent .order-total").each(function () {
+        $(" .order-total").each(function () {
             cart_subtotal = $(this).parent().find(".cart-subtotal b").text();
             cart_discount = $(this).parent().find(".cart-discount b").text();
             order_total = cart_subtotal - cart_discount
@@ -129,10 +131,10 @@ $(function () {
 
     /*下单流程*/
     $(".checkout .buy_btn").click(function () {
+        if ($(this).prev().find('#users_can_register').is(':checked')){
         $(this).parent().parent().parent().parent().hide();
         $("section.wp-pay").show().siblings().hide();
         const product_id = $(this).attr("product_id");
-
         const coupon_code = $(this).parent().parent().parent().parent().find("#coupon_code").val();
         $.ajax({
             url: api_domain + "/lp-api/v1/orders",
@@ -162,6 +164,11 @@ $(function () {
             complete: function () {
             },
         })
+        }
+        else {
+            alert("您必须同意协议才能进行支付");
+            $("section.wp-pay").hide();
+        }
     })
 
 
