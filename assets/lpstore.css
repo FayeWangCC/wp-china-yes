@@ -760,3 +760,14 @@ ul.lava_ajax_search {
 #showDiv li a aside{
     margin-left: auto;
 }
+.theme .woocommerce-Price-amount.amount{
+    position: absolute;
+    right: -52px;
+    top: 33px;
+    color: rgb(255, 255, 255);
+    width: 98px;
+    text-align: center;
+    transform: translateY(-50%) translateX(-50%) translateX(35px) rotate(45deg);
+    background: var(--main-color);
+    padding: 5px 10px;
+}

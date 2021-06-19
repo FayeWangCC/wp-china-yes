@@ -5,6 +5,7 @@ namespace LitePress\WP_China_Yes\Template;
 use stdClass;
 use function LitePress\WP_China_Yes\Inc\get_template_part;
 use function LitePress\WP_China_Yes\Inc\pagination;
+use function LitePress\WP_China_Yes\Inc\prepare_price_for_html;
 
 $tpl_args = $tpl_args ?? array(
         'projects'           => array(),
@@ -127,6 +128,7 @@ $tpl_args = $tpl_args ?? array(
               <a class="thickbox" href="#TB_inline?&inlineId=donate-<?php echo $project->id ?>">
                 <div class="theme-screenshot">
                   <img src="<?php echo $project->thumbnail_src ?>" alt="">
+                    <?php prepare_price_for_html( (int) $project->price ); ?>
                 </div>
 
                 <span class="more-details">
