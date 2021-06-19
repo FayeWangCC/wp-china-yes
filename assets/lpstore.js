@@ -144,13 +144,15 @@ $(function () {
             },
             success: function (data) {
                 console.log(data);
-                localStorage.setItem("local_order_id",data.id);
+                localStorage.setItem("local_order_id", data.id);
                 if (data.pay_url === undefined || data.pay_url.length === 0) {
                     $(".qrcode").html("支付成功")
                 } else {
                     $(".qrcode").html("").qrcode(data.pay_url);
                     $('.authentication-message').html("支付状态：查询中<i\n" + " class=\"loading\"></i>");
-                    setInterval(function(){ Payment_query();}, 1000)
+                    setInterval(function () {
+                        Payment_query();
+                    }, 1000)
                 }
             },
             error: function (error) {
@@ -164,41 +166,39 @@ $(function () {
 
 
     /*封装支付查询*/
-    function Payment_query(){
+    function Payment_query() {
         $.ajax({
             url: api_domain + "/lp-api/v1/orders/is_paid",
             type: "GET",
-            dataType:"JSON",
+            dataType: "JSON",
             data: {
-                order_id:localStorage.getItem("local_order_id"),
+                order_id: localStorage.getItem("local_order_id"),
             },
             beforeSend: function (XMLHttpRequest) {
                 /*XMLHttpRequest.setRequestHeader("X-WP-Nonce", wprpv_rest_api_nonce);*/
             },
-            error:function(error) {
+            error: function (error) {
                 /*            if( error.responseJSON.message.length !== 0 ) {
                                 /!*$(".qrcode").html("");*!/
                                 $('.authentication-message').html(error.responseJSON.message);
                             }*/
                 console.log(error);
             },
-            complete: function() {
+            complete: function () {
             },
-            success: function(data) {
+            success: function (data) {
                 /*console.log(data);*/
-                if(data.status ==="unpaid" ){
+                if (data.status === "unpaid") {
                     status = "未支付"
-                }
-                else if(data.status ==="paid"){
+                } else if (data.status === "paid") {
                     status = "支付成功";
                     $(".qrcode").html("");
                 }
-                $('.authentication-message').html("支付状态："+status);
+                $('.authentication-message').html("支付状态：" + status);
 
             }
         });
     }
-
 
 
     /*登录流程*/
@@ -240,23 +240,96 @@ $(function () {
             },
         })
     })
-/*搜索*/
+    /*搜索*/
     $(".wp-filter-search").on("input", function () {
         const input_val = $(this).val();
         const href = location.href;
-        const slug = $("#typeselector").val()
+        const typeselector = $("#typeselector").val()
         $(this).keydown(function (event) {
+            let content;
             if (event.keyCode === 13) {
-                $(location).prop('href', href + "&search=" + input_val + "&search_by="+ slug);
+                $(location).prop('href', href + "&search=" + input_val + "&search_by=" + typeselector);
 
+            } else if (typeselector === "tag") {
+                content = "";
+                $.ajax({
+                    url: "https://api.litepress.cn/lp/tags?search=" + input_val,
+                    type: "GET",
+                    dataType: "JSON",
+                    beforeSend: function (data) {
+                        $(" .ajax_loading").removeClass("hidden")
+                    },
+                    success: function (data) {
+                        /*console.log(data.data);*/
+                        $.each(data.data, function (wp, val) {
+                            url = $(location).attr('href');
+                            url_noparm = url.split("&").splice(0, 1).join("");
+                            content += "<li>" + "<a " + "href='"+ url_noparm + "&search=" + val.slug + "&search_by=tag" +"'><span>" + val.name + "</span><aside>" + val.count + "条结果</aside>" + "</a>" + "</li>";
+                            $("#showDiv").slideDown().html(content);
+                        });
+                        $(" .ajax_loading").addClass("hidden");
+
+                        $(document).click(function (e) {
+                            const $target = $(e.target);
+                            if (!$target.is('#showDiv *')) {
+                                $('#showDiv').slideUp();
+                            }
+                        });
+                    },
+                    error: function () {
+
+                    }
+                });
+            } else if (typeselector === "author") {
+                content = "";
+                $.ajax({
+                    url: "https://api.litepress.cn/lp/vendors?search=" + input_val,
+                    type: "GET",
+                    dataType: "JSON",
+                    beforeSend: function (data) {
+                        $(" .ajax_loading").removeClass("hidden")
+                    },
+                    success: function (data) {
+                        /*console.log(data.data);*/
+                        $.each(data.data, function (wp, val) {
+                            url = $(location).attr('href');
+                            url_noparm = url.split("&").splice(0, 1).join("");
+                            content += "<li>" + "<a " + "href='"+ url_noparm + "&search=" + val.slug + "&search_by=author" +"'><span>" + val.name + "</span><aside>" + val.count + "条结果</aside>" + "</a>" + "</li>";
+                            $("#showDiv").slideDown().html(content);
+                        });
+                        $(" .ajax_loading").addClass("hidden");
+
+                        $(document).click(function (e) {
+                            const $target = $(e.target);
+                            if (!$target.is('#showDiv *')) {
+                                $('#showDiv').slideUp();
+                            }
+                        });
+                    },
+                    error: function () {
+
+                    }
+                });
             }
+
+
         })
 
     });
 
-    window.onload = function(){
-        $(".wp-filter-search").val(Url.queryString("search"))
-        $("#typeselector").val(Url.queryString("search_by"))
+    window.onload = function () {
+        search_val = Url.queryString("search");
+        search_by = Url.queryString("search_by");
+        if (search_val.length > 0) {
+            $(".wp-filter-search").val(search_val)
+            $("#typeselector").val(search_by)
+        }
+    }
+
+
+    function search() {
+
+
     }
 
 

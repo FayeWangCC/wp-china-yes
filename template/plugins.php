@@ -21,7 +21,7 @@ $tpl_args = $tpl_args ?? array(
 ?>
 
 <?php add_action( 'wcy_search_form', function () { ?>
-  <form class="search-form search-plugins" method="get">
+  <form class="search-form search-plugins header-search" method="get">
     <input type="hidden" name="tab" value="search"/>
     <label class="screen-reader-text" for="typeselector">搜索插件：</label>
     <select name="type" id="typeselector">
@@ -30,7 +30,19 @@ $tpl_args = $tpl_args ?? array(
       <option value="tag">标签</option>
     </select>
     <label class="screen-reader-text" for="search-plugins">搜索插件</label>
-    <input type="search" name="s" id="search-plugins" value="" class="wp-filter-search" placeholder="搜索插件…"/>
+    <input type="search" name="s" AUTOCOMPLETE="off" id="search-plugins" value="" class="wp-filter-search" placeholder="搜索插件…"/>
+      <button type="submit">
+          <div><i class="fas fa-search"></i>
+              <div class="ajax_loading hidden">
+                  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="spinner" class="svg-inline--fa fa-spinner fa-w-16" role="img" viewBox="0 0 512 512"><path fill="currentColor" d="M304 48c0 26.51-21.49 48-48 48s-48-21.49-48-48 21.49-48 48-48 48 21.49 48 48zm-48 368c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zm208-208c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zM96 256c0-26.51-21.49-48-48-48S0 229.49 0 256s21.49 48 48 48 48-21.49 48-48zm12.922 99.078c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.491-48-48-48zm294.156 0c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.49-48-48-48zM108.922 60.922c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.491-48-48-48z"/></svg>
+              </div>
+              <div class="clear hidden">
+                  <i class="fa fa-close"></i>
+              </div>
+          </div>
+      </button>
+      <ul id="showDiv" tabindex="0"
+          class="ui-menu ui-widget ui-widget-content  ui-front lava_ajax_search hidden"></ul>
     <input type="submit" id="search-submit" class="button hide-if-js" value="搜索插件"/>
   </form>
 <?php } ); ?>
