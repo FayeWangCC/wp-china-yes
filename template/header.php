@@ -53,15 +53,16 @@ namespace LitePress\WP_China_Yes\Template;
               </button>
             </div>
           </div>
-          <p class="submit">
+          <section class="submit">
+              <p id="nav">
+                  <a rel="nofollow" href="https://litepress.cn/wp-login.php?action=register" target="_blank"
+                     one-link-mark="yes">注册</a> | <a href="https://litepress.cn/wp-login.php?action=lostpassword"
+                                                     target="_blank" one-link-mark="yes">忘记密码？</a>
+              </p>
             <input type="submit" name="wp-submit" id="wp-submit" class="button button-primary button-large wp_login_btn"
                    value="登录">
-          </p>
-            <p id="nav">
-                <a rel="nofollow" href="https://litepress.cn/wp-login.php?action=register" target="_blank"
-                   one-link-mark="yes">注册</a> | <a href="https://litepress.cn/wp-login.php?action=lostpassword"
-                                                   target="_blank" one-link-mark="yes">忘记密码？</a>
-            </p>
+          </section>
+
         </div>
       </div>
   </section>

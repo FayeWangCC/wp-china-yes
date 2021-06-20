@@ -277,15 +277,21 @@
         width: 100vw
     }
 }
-
+.login  .spinner{
+    margin-left: auto;
+}
 .login form .forgetmenot {
     font-weight: 400;
     float: left;
     margin-bottom: 0
 }
-
+section.submit{
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+}
 .login .button-primary {
-    float: right
+    margin-left: auto;
 }
 
 .login .admin-email-confirm-form .submit {
@@ -336,9 +342,6 @@
     font-size: 13px;
 }
 
-.login #nav {
-    margin: -4px 0 0 0
-}
 
 #backtoblog {
     margin: 16px 0

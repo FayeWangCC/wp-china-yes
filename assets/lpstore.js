@@ -208,6 +208,18 @@ $(function () {
         });
     }
 
+    $('.wp-pwd button').click(function()
+    {
+        $(this).find("span").toggleClass('dashicons-visibility dashicons-hidden');
+       type = $(this).prev().attr("type");
+
+       if (type==="password"){
+           $(this).prev().prop('type', 'text')
+    }
+        else {
+           $(this).prev().prop('type', 'password')
+       }
+    });
 
     /*登录流程*/
     $(".wp_login_btn").click(function () {
@@ -221,10 +233,26 @@ $(function () {
                 user_login: user_login,
                 password: password,
             },
+            beforeSend: function (data) {
+                $("#wp-submit").before("<span class=\"spinner is-active\"></span>")
+            },
             success: function (data) {
+                $("#login_error").remove("");
                 window.location.reload();
             },
             error: function (error) {
+                login_val = $("#user_login").val();
+                pass_val = $("#user_pass").val();
+                if (login_val === "" && pass_val === "") {
+                    $("#login_error,.spinner").remove("");
+                    $(".navbar-brand").after("<div id=\"login_error\">\t<strong>错误</strong>：用户名字段为空。<br>\n" +
+                        "\t<strong>错误</strong>：密码字段为空。<br>\n" +
+                        "</div>")
+                } else if (error.responseJSON.message==="账户或密码不正确") {
+                    $("#login_error,.spinner").remove("");
+                    $(".navbar-brand").after("<div id=\"login_error\">\t<strong>错误</strong>：您输入的密码不正确。 <a href=\"https://litepress.cn/wp-login.php?action=lostpassword\">忘记密码？</a><br>\n" +
+                        "</div>")
+                }
                 console.log(error);
             },
             complete: function () {
