@@ -106,12 +106,14 @@ $(function () {
         }
     })
 
+    /*购买按钮函数*/
     $(".buy_plugin_btn").click(function () {
         $("section.checkout").show().siblings().hide();
         count();
         $(".buy_agreement").click(function () {
             $("section.checkout").hide();
             $("section.protocol").show();
+            $(this).parent().parent().find("#users_can_register").attr("checked", true);
         })
         $(".agree_btn").click(function () {
             $(this).parent().parent().hide().siblings().show();
@@ -129,43 +131,42 @@ $(function () {
         })
     }
 
-    /*下单流程*/
+    /*支付流程*/
     $(".checkout .buy_btn").click(function () {
-        if ($(this).prev().find('#users_can_register').is(':checked')){
-        $(this).parent().parent().parent().parent().hide();
-        $("section.wp-pay").show().siblings().hide();
-        const product_id = $(this).attr("product_id");
-        const coupon_code = $(this).parent().parent().parent().parent().find("#coupon_code").val();
-        $.ajax({
-            url: api_domain + "/lp-api/v1/orders",
-            type: "post",
-            dataType: "JSON",
-            data: {
-                product_id: product_id,
-                coupon_code: coupon_code,
-            },
-            success: function (data) {
-                console.log(data);
-                localStorage.setItem("local_order_id", data.id);
-                if (data.pay_url === undefined || data.pay_url.length === 0) {
-                    $(".qrcode").html("支付成功")
-                } else {
-                    $(".qrcode").html("").qrcode(data.pay_url);
-                    $('.authentication-message').html("支付状态：查询中<i\n" + " class=\"loading\"></i>");
-                    setInterval(function () {
-                        Payment_query();
-                    }, 1000)
-                }
-            },
-            error: function (error) {
-                console.log(error);
-                $('.authentication-message').html("发生未知错误，请重试");
-            },
-            complete: function () {
-            },
-        })
-        }
-        else {
+        if ($(this).prev().find('#users_can_register').is(':checked')) {
+            $(this).parent().parent().parent().parent().hide();
+            $("section.wp-pay").show().siblings().hide();
+            const product_id = $(this).attr("product_id");
+            const coupon_code = $(this).parent().parent().parent().parent().find("#coupon_code").val();
+            $.ajax({
+                url: api_domain + "/lp-api/v1/orders",
+                type: "post",
+                dataType: "JSON",
+                data: {
+                    product_id: product_id,
+                    coupon_code: coupon_code,
+                },
+                success: function (data) {
+                    console.log(data);
+                    localStorage.setItem("local_order_id", data.id);
+                    if (data.pay_url === undefined || data.pay_url.length === 0) {
+                        $(".qrcode").html("支付成功")
+                    } else {
+                        $(".qrcode").html("").qrcode(data.pay_url);
+                        $('.authentication-message').html("支付状态：查询中<i\n" + " class=\"loading\"></i>");
+                        setInterval(function () {
+                            Payment_query();
+                        }, 1000)
+                    }
+                },
+                error: function (error) {
+                    console.log(error);
+                    $('.authentication-message').html("发生未知错误，请重试");
+                },
+                complete: function () {
+                },
+            })
+        } else {
             alert("您必须同意协议才能进行支付");
             $("section.wp-pay").hide();
         }
@@ -271,7 +272,7 @@ $(function () {
                         $.each(data.data, function (wp, val) {
                             url = $(location).attr('href');
                             url_noparm = url.split("&").splice(0, 1).join("");
-                            content += "<li>" + "<a " + "href='"+ url_noparm + "&search=" + val.slug + "&search_by=tag" +"'><span>" + val.name + "</span><aside>" + val.count + "条结果</aside>" + "</a>" + "</li>";
+                            content += "<li>" + "<a " + "href='" + url_noparm + "&search=" + val.slug + "&search_by=tag" + "'><span>" + val.name + "</span><aside>" + val.count + "条结果</aside>" + "</a>" + "</li>";
                             $("#showDiv").slideDown().html(content);
                         });
                         $(" .ajax_loading").addClass("hidden");
@@ -301,7 +302,7 @@ $(function () {
                         $.each(data.data, function (wp, val) {
                             url = $(location).attr('href');
                             url_noparm = url.split("&").splice(0, 1).join("");
-                            content += "<li>" + "<a " + "href='"+ url_noparm + "&search=" + val.slug + "&search_by=author" +"'><span>" + val.name + "</span><aside>" + val.count + "条结果</aside>" + "</a>" + "</li>";
+                            content += "<li>" + "<a " + "href='" + url_noparm + "&search=" + val.slug + "&search_by=author" + "'><span>" + val.name + "</span><aside>" + val.count + "条结果</aside>" + "</a>" + "</li>";
                             $("#showDiv").slideDown().html(content);
                         });
                         $(" .ajax_loading").addClass("hidden");
@@ -327,7 +328,7 @@ $(function () {
     window.onload = function () {
         search_val = Url.queryString("search");
         search_by = Url.queryString("search_by");
-        if (search_val.length > 0) {
+        if (search_val !== undefined) {
             $(".wp-filter-search").val(search_val)
             $("#typeselector").val(search_by)
         }
