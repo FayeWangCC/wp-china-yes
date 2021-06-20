@@ -41,12 +41,13 @@ final class Product_Controller {
         $body = get_products_from_lpcn( Product_Type::Theme );
 
         $args = array(
-            'projects'   => $body->data,
-            // 'all_local_projects' => $all_local_projects,
-            'cats'       => $body->cats,
-            'total'      => $body->total,
-            'totalpages' => $body->totalpages,
-            'paged'      => $_GET['paged'] ?? 1,
+            'projects'             => $body->data,
+            'all_local_projects'   => wp_get_themes(),
+            'local_active_project' => wp_get_theme()->get_stylesheet(),
+            'cats'                 => $body->cats,
+            'total'                => $body->total,
+            'totalpages'           => $body->totalpages,
+            'paged'                => $_GET['paged'] ?? 1,
         );
 
         get_template_part( 'themes', '', $args );
