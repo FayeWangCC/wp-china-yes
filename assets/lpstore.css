@@ -447,8 +447,11 @@ input::-ms-reveal {
 
 #TB_ajaxContent {
     height: auto !important;
+    padding: 15px;
 }
-
+#TB_ajaxContent section header{
+    margin-bottom: 15px;
+}
 .d-flex {
     display: flex;
 }
@@ -716,8 +719,8 @@ table.shop_table tfoot th {
     content: "外部";
     position: absolute;
     font-size: 10px;
-    left: 82px;
-    top: 14px;
+    left: 80px;
+    top: 15px;
     background: var(--main-color);
     padding: 5px 10px;
     color: #fff;
@@ -801,3 +804,20 @@ ul.lava_ajax_search {
     background: var(--main-color);
     padding: 5px 10px;
 }
+@media screen and (max-width: 768px) {
+#TB_ajaxContent,#TB_window{
+    width: 95%!important;
+    left: 0;
+    right: 0;
+    margin-left: auto!important;
+    margin-right: auto!important;
+}
+    .wrap h1.wp-heading-inline {
+        margin-bottom: 0;
+        padding: 0;
+    }
+    .wp-header-end{
+        margin-top: 5px;
+    }
+}
+
