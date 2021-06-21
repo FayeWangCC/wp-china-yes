@@ -229,12 +229,12 @@ $tpl_args = $tpl_args ?? array(
                          data-name="<?php echo $project->name; ?> <?php echo $project->meta->_api_new_version ?>">现在安装</a>
                     <?php endif; ?>
                 </li>
-                <li>
-                  <td class="product-total">
+                <li  class="product-price">
+
                       <?php prepare_price_for_html( (int) $project->price ); ?>
-                  </td>
+
                 </li>
-                <li>
+                <li class="phone-hide">
                   <a href="<?php echo $plugin_details_url; ?>"
                      class="thickbox open-plugin-details-modal"
                      aria-label="关于<?php echo $project->name; ?>的更多信息"
