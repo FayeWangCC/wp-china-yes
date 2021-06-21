@@ -848,7 +848,7 @@ ul.lava_ajax_search {
         -webkit-box-orient: vertical;
     }
     .tablenav.bottom .tablenav-pages {
-        margin-top: 10px;
+        margin-top: -5px;
     }
     .displaying-num{
         margin-bottom: 10px!important;
@@ -856,5 +856,28 @@ ul.lava_ajax_search {
     }
     #wpbody-content {
         padding-bottom: 10px;
+    }
+    .tablenav-pages .pagination-links {
+        font-size: 14px;
+    }
+    .tablenav-pages .pagination-links .current-page{
+        padding: 0;
+        line-height: 0;
+        min-height: 30px;
+    }
+    .tablenav .tablenav-pages .button, .tablenav .tablenav-pages .tablenav-pages-navspan{
+        line-height: 0;
+    }
+    .tablenav.top{
+        margin-right:auto ;
+    }
+    .f-sort{
+        margin: auto;
+    }
+    .tablenav .tablenav-pages{
+        margin:0
+    }
+    .tablenav.bottom{
+        margin: 0;
     }
 }
