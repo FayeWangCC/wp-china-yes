@@ -111,42 +111,31 @@ $tpl_args = $tpl_args ?? array(
          class="sort_popularity <?php echo ! isset( $_GET['orderby'] ) || 'popularity' === $_GET['orderby'] ? 'curr' : '' ?>"
          title="按销量排序" rel="popularity">
         <span class="fs-tit">销量</span>
-        <em class="fs-down">
-          <span class="dashicons dashicons-arrow-down-alt"></span>
-        </em>
+            <svg aria-hidden="true" focusable="false" data-prefix="fad" data-icon="long-arrow-alt-down" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512" class="svg-inline--fa fa-long-arrow-alt-down fa-w-8" style="--fa-secondary-opacity:0.1;"><g class="fa-group"><path fill="currentColor" d="M168.11 44v301.94h-80V44a12 12 0 0 1 12-12h56a12 12 0 0 1 12 12z" class="fa-secondary"></path><path fill="currentColor" d="M231.17 386.94L145.08 473a24 24 0 0 1-33.94 0l-86.06-86.09c-15.12-15.12-4.41-41 17-41h172.09c21.38.03 32.09 25.88 17 41.03z" class="fa-primary"></path></g></svg>
       </a>
       <a href="<?php echo add_query_arg( array( 'orderby' => 'rating' ) ); ?>"
          class="sort_rating <?php echo isset( $_GET['orderby'] ) && 'rating' === $_GET['orderby'] ? 'curr' : '' ?>"
          title="按好评度排序" rel="rating">
         <span class="fs-tit">好评度</span>
-        <em class="fs-down">
-          <span class="dashicons dashicons-arrow-down-alt"></span>
-        </em>
+          <svg aria-hidden="true" focusable="false" data-prefix="fad" data-icon="long-arrow-alt-down" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512" class="svg-inline--fa fa-long-arrow-alt-down fa-w-8" style="--fa-secondary-opacity:0.1;"><g class="fa-group"><path fill="currentColor" d="M168.11 44v301.94h-80V44a12 12 0 0 1 12-12h56a12 12 0 0 1 12 12z" class="fa-secondary"></path><path fill="currentColor" d="M231.17 386.94L145.08 473a24 24 0 0 1-33.94 0l-86.06-86.09c-15.12-15.12-4.41-41 17-41h172.09c21.38.03 32.09 25.88 17 41.03z" class="fa-primary"></path></g></svg>
       </a>
       <a href="<?php echo add_query_arg( array( 'orderby' => 'date' ) ); ?>"
          class="sort_date <?php echo isset( $_GET['orderby'] ) && 'date' === $_GET['orderby'] ? 'curr' : '' ?>"
          title="按最新内容排序" rel="date">
         <span class="fs-tit">新品</span>
-        <em class="fs-down">
-          <span class="dashicons dashicons-arrow-down-alt"></span>
-        </em>
+          <svg aria-hidden="true" focusable="false" data-prefix="fad" data-icon="long-arrow-alt-down" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512" class="svg-inline--fa fa-long-arrow-alt-down fa-w-8" style="--fa-secondary-opacity:0.1;"><g class="fa-group"><path fill="currentColor" d="M168.11 44v301.94h-80V44a12 12 0 0 1 12-12h56a12 12 0 0 1 12 12z" class="fa-secondary"></path><path fill="currentColor" d="M231.17 386.94L145.08 473a24 24 0 0 1-33.94 0l-86.06-86.09c-15.12-15.12-4.41-41 17-41h172.09c21.38.03 32.09 25.88 17 41.03z" class="fa-primary"></path></g></svg>
       </a>
       <a href="<?php echo add_query_arg( array( 'orderby' => 'price', 'order' => 'asc' ) ); ?>"
          class="sort_price <?php echo isset( $_GET['orderby'] ) && 'price' === $_GET['orderby'] && isset( $_GET['order'] ) && 'asc' === $_GET['order'] ? 'curr' : '' ?>"
          title="按价格从低到高排序" rel="price">
         <span class="fs-tit">价格</span>
-        <em class="fs-up">
-          <span class="dashicons dashicons-arrow-up-alt"></span>
-        </em>
+          <svg aria-hidden="true" focusable="false" data-prefix="fad" data-icon="sort-amount-up" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-inline--fa fa-sort-amount-up fa-w-16"><g class="fa-group"><path fill="currentColor" d="M304 416h-64a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h64a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zm128-256H240a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h192a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zm-64 128H240a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h128a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zM496 32H240a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h256a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16z" class="fa-secondary"></path><path fill="currentColor" d="M16 160h48v304a16 16 0 0 0 16 16h32a16 16 0 0 0 16-16V160h48c14.21 0 21.38-17.24 11.31-27.31l-80-96a16 16 0 0 0-22.62 0l-80 96C-5.35 142.74 1.77 160 16 160z" class="fa-primary"></path></g></svg>
       </a>
       <a href="<?php echo add_query_arg( array( 'orderby' => 'price', 'order' => 'desc' ) ); ?>"
          class="sort_price-desc <?php echo isset( $_GET['orderby'] ) && 'price' === $_GET['orderby'] && ( ! isset( $_GET['order'] ) || 'desc' === $_GET['order'] ) ? 'curr' : '' ?>"
          title="按价格从高到低排序" rel="price-desc">
         <span class="fs-tit">价格</span>
-        <em class="fs-down">
-          <span class="dashicons dashicons-arrow-down-alt"></span>
-        </em>
-      </a>
+          <svg aria-hidden="true" focusable="false" data-prefix="fad" data-icon="sort-amount-down" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-inline--fa fa-sort-amount-down fa-w-16"><g class="fa-group"><path fill="currentColor" d="M304 416h-64a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h64a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zm128-256H240a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h192a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zm-64 128H240a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h128a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zM496 32H240a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h256a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16z" class="fa-secondary"></path><path fill="currentColor" d="M176 352h-48V48a16 16 0 0 0-16-16H80a16 16 0 0 0-16 16v304H16c-14.19 0-21.37 17.24-11.29 27.31l80 96a16 16 0 0 0 22.62 0l80-96C197.35 369.26 190.22 352 176 352z" class="fa-primary"></path></g></svg>      </a>
     </div>
     <div class="tablenav top">
       <div class="alignleft actions"></div>

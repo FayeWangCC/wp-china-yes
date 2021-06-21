@@ -1,29 +1,37 @@
-:root body{
-    --main-color:#2271b1;
+:root body {
+    --main-color: #2271b1;
 }
-:root body.admin-color-light{
-    --main-color:#0490b3;
+
+:root body.admin-color-light {
+    --main-color: #0490b3;
 }
-:root body.admin-color-modern{
-    --main-color:#4664eb;
+
+:root body.admin-color-modern {
+    --main-color: #4664eb;
 }
-:root body.admin-color-blue{
-    --main-color:#e1a948;
+
+:root body.admin-color-blue {
+    --main-color: #e1a948;
 }
-:root body.admin-color-coffee{
-    --main-color:#c7a589;
+
+:root body.admin-color-coffee {
+    --main-color: #c7a589;
 }
-:root body.admin-color-ectoplasm{
-    --main-color:#a3b745;
+
+:root body.admin-color-ectoplasm {
+    --main-color: #a3b745;
 }
-:root body.admin-color-midnight{
-    --main-color:#e14d43;
+
+:root body.admin-color-midnight {
+    --main-color: #e14d43;
 }
-:root body.admin-color-ocean{
-    --main-color:#a7c0a9;
+
+:root body.admin-color-ocean {
+    --main-color: #a7c0a9;
 }
-:root body.admin-color-ocean{
-    --main-color:#dd823b;
+
+:root body.admin-color-ocean {
+    --main-color: #dd823b;
 }
 
 
@@ -58,17 +66,17 @@
     color: #333;
     font-size: 14px;
     text-decoration: none;
+    display: flex;
 }
 
-.f-sort .fs-down, .f-sort .fs-up {
-    display: inline-block;
-    width: 15px;
-    vertical-align: top;
-    *cursor: pointer;
-    min-width: 10px;
-    text-align: center;
+.f-sort .fa-w-8 {
+    width: 8px;
+    margin-left: 10px;
 }
-
+.f-sort .fa-w-16 {
+    width: 16px;
+    margin-left: 10px;
+}
 .f-sort a.curr {
     border-color: var(--main-color);
     background: var(--main-color);
@@ -277,19 +285,23 @@
         width: 100vw
     }
 }
-.login  .spinner{
+
+.login .spinner {
     margin-left: auto;
 }
+
 .login form .forgetmenot {
     font-weight: 400;
     float: left;
     margin-bottom: 0
 }
-section.submit{
+
+section.submit {
     display: flex;
     align-items: center;
     margin-top: 20px;
 }
+
 .login .button-primary {
     margin-left: auto;
 }
@@ -340,6 +352,7 @@ section.submit{
 .login #backtoblog,
 .login #nav {
     font-size: 13px;
+    width: auto !important;
 }
 
 
@@ -605,6 +618,7 @@ table.shop_table tfoot th {
     font-size: 16px;
     font-weight: bold;
 }
+
 .woocommerce-Price-amount.free {
     color: var(--main-color);
     font-size: 15px;
@@ -663,12 +677,15 @@ table.shop_table tfoot th {
     display: none;
 }
 
-.tb-close-icon {
-    color: #fff !important;
-}
 
-#TB_closeWindowButton {
-    right: -40px !important;
+@media screen and (min-width: 768px) {
+    #TB_closeWindowButton {
+        right: -40px !important;
+    }
+
+    .tb-close-icon {
+        color: #fff !important;
+    }
 }
 
 #TB_closeWindowButton:focus .tb-close-icon {
@@ -680,10 +697,12 @@ table.shop_table tfoot th {
     display: block;
     margin-bottom: 30px;
 }
-.type-external .plugin-icon:before{
-content: "";
+
+.type-external .plugin-icon:before {
+    content: "";
 }
-.img-box{
+
+.img-box {
     position: absolute;
     top: 20px;
     left: 20px;
@@ -692,7 +711,8 @@ content: "";
     margin: 0 20px 20px 0;
     overflow: hidden;
 }
-.type-external  .img-box:after {
+
+.type-external .img-box:after {
     content: "外部";
     position: absolute;
     font-size: 10px;
@@ -709,7 +729,8 @@ content: "";
     -ms-transform: translateY(-50%) translateX(-50%) translateX(35px) rotate(45deg);
     transform: translateY(-50%) translateX(-50%) translateX(35px) rotate(45deg);
 }
-.type-external  .column-rating,.type-external  .column-downloaded{
+
+.type-external .column-rating, .type-external .column-downloaded {
     display: none;
 }
 
@@ -717,15 +738,18 @@ input::-webkit-search-cancel-button {
     -webkit-appearance: none;
 
 }
+
 input[type=search]::-ms-clear {
     appearance: none;
 
 }
-.ajax_loading{
+
+.ajax_loading {
     animation: rotation 1.5s linear infinite;
     width: 15px;
     height: 15px;
 }
+
 @-webkit-keyframes rotation {
     from {
         -webkit-transform: rotate(0deg);
@@ -757,13 +781,16 @@ ul.lava_ajax_search {
     z-index: 1;
     min-width: 348px;
 }
-#showDiv li a{
+
+#showDiv li a {
     display: flex;
 }
-#showDiv li a aside{
+
+#showDiv li a aside {
     margin-left: auto;
 }
-.theme .woocommerce-Price-amount{
+
+.theme .woocommerce-Price-amount {
     position: absolute;
     right: -52px;
     top: 33px;
