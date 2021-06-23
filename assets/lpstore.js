@@ -94,7 +94,7 @@ $(function () {
     })
 
 
-    /*优惠券下拉*/
+    /*优惠券下拉*
     $(".showcoupon").click(function () {
         $(this).parent().parent().next().slideToggle();
         if ($('.checkout_coupon').is(":visible")) {
@@ -116,7 +116,7 @@ $(function () {
             $(this).parent().parent().find("#users_can_register").attr("checked", true);
         })
         $(".agree_btn").click(function () {
-            $(this).parent().parent().hide().siblings().show();
+            $(this).parent().parent().hide().prev().show();
         })
     });
 
@@ -134,8 +134,7 @@ $(function () {
     /*支付流程*/
     $(".checkout .buy_btn").click(function () {
         if ($(this).prev().find('#users_can_register').is(':checked')) {
-            $(this).parent().parent().parent().parent().hide();
-            $("section.wp-pay").show().siblings().hide();
+
             const product_id = $(this).attr("product_id");
             const coupon_code = $(this).parent().parent().parent().parent().find("#coupon_code").val();
             $.ajax({
@@ -149,15 +148,28 @@ $(function () {
                 success: function (data) {
                     console.log(data);
                     localStorage.setItem("local_order_id", data.id);
-                    if (data.pay_url === undefined || data.pay_url.length === 0) {
+
+                 if(data.code === 401){
+                        tb_show("","#TB_inline?height=300&width=300&inlineId=login-1",false);
+                     $(this).parent().parent().parent().parent().hide();
+                     $("section.login").show().siblings().hide();
+                    }
+                    else {
+                    if ( data.pay_url === undefined || data.pay_url.length === 0  ) {
+                        $(this).parent().parent().parent().parent().hide();
+                        $("section.wp-pay").show().siblings().hide();
                         $(".qrcode").html("支付成功")
-                    } else {
+                    }
+                    else {
+                        $(this).parent().parent().parent().parent().hide();
+                        $("section.wp-pay").show().siblings().hide();
                         $(".qrcode").html("").qrcode(data.pay_url);
                         $('.authentication-message').html("支付状态：查询中<i\n" + " class=\"loading\"></i>");
                         setInterval(function () {
                             Payment_query();
                         }, 1000)
                     }
+                 }
                 },
                 error: function (error) {
                     console.log(error);

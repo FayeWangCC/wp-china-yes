@@ -34,7 +34,7 @@ namespace LitePress\WP_China_Yes\Template;
 
         <?php endif; ?>
       <div id="login-1" style="display:none;">
-        <div class="login">
+        <section class="login">
             <a class="navbar-brand" href="https://litepress.cn" target="_blank" one-link-mark="yes">
                 <img src="https://litepress.cn/wp-content/uploads/2021/05/logo.svg" alt="LitePress 社区"
                      width="200"></a>
@@ -63,7 +63,7 @@ namespace LitePress\WP_China_Yes\Template;
                    value="登录">
           </section>
 
-        </div>
+        </section>
       </div>
   </section>
   <hr class="wp-header-end">
